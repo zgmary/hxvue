@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全局API使用例子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+
+<div id="app">
+    <h2>1、全局水印例子</h2>
+    <h2>2、日志例子，请按F12键查看console输出</h2>
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {}
+        },
+        created() {
+            this.$HxVueLog.setLevel("ALL");
+            this.$HxVueLog.capsule("ALL", "标题：提示", "内容：日志信息输出！", "primary");
+            this.$HxVueLog.all("all日志信息输出！");
+            this.$HxVueLog.debug("debug日志信息输出！");
+            this.$HxVueLog.note("note日志信息输出！");
+            this.$HxVueLog.warn("warn日志信息输出！");
+            this.$HxVueLog.error("error日志信息输出！");
+            this.$HxVueWatermark({text: '组件版本：' + this.$HxVueVersion});
+        },
+        methods: {}
+    })
+</script>
+</html>
