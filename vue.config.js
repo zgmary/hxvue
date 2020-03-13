@@ -18,16 +18,16 @@ module.exports = {
   // 加了这个必须在index.html网页中引入这些组件，也即通过CDN获取
   /*configureWebpack: config => {
     config.externals = {
-      'vue': 'Vue',
-      'element-ui': 'ELEMENT',
-      'vue-router': 'VueRouter',
-      'vuex': 'Vuex',
-      'axios': 'axios'
-    }
+      vue: "Vue",
+      "element-ui": "ELEMENT",
+      "vue-router": "VueRouter",
+      vuex: "Vuex",
+      axios: "axios",
+      hxvue: "Hxvue"
+    };
   },*/
   chainWebpack: config => {
     config.resolve.alias.set("@", resolve("./src"));
-    config.resolve.alias.set("core", resolve("./packages/core"));
     config.resolve.alias.set("components", resolve("./packages/components"));
     config.module.rules.delete("svg");
     config.module

@@ -1,5 +1,5 @@
 import _waterMark from "./watermark";
-import { dataURLtoFile } from "core/util";
+import { dataURLtoFile } from "../../core/util";
 // 标准参数
 let canvas,
   ctx,

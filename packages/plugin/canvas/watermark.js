@@ -1,4 +1,4 @@
-import { randomId } from "core/util";
+import { randomId } from "../../core/util";
 
 class waterMark {
   constructor(opt = {}) {

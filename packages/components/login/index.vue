@@ -104,7 +104,7 @@
 <script>
 const INIT_TEXT = "发送验证码";
 const TIP_TEXT = "{{time}}s后重新获取";
-import create from "core/create";
+import create from "../../core/create";
 
 export default create({
   name: "login",
@@ -154,7 +154,11 @@ export default create({
       nowTime: "",
       check: {},
       codeType: this.option.codeType || "img",
-      formData: {}
+      formData: {
+        userName: "",
+        password: "",
+        code: ""
+      }
     };
   },
   created() {
