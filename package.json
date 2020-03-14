@@ -1,7 +1,9 @@
 {
-  "name": "hxvue",
+  "name": "@zldz/hxvue",
   "version": "0.1.0",
-  "private": true,
+  "description": "A Teacher Demo",
+  "main": "lib/hxvue.umd.min.js",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,6 +11,11 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue",
+    "element-ui",
+    "hxvue"
+  ],
   "dependencies": {
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
@@ -31,5 +38,9 @@
     "sass-loader": "^8.0.2",
     "sinon": "^9.0.1",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ]
 }

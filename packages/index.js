@@ -5,7 +5,7 @@ import { $HxVueWatermark } from "./plugin/canvas/";
 // 存储组件列表
 const components = [HelloWord, Login];
 // 组件版本号
-const $HxVueVersion = "Ver 1.0.0.0";
+const $HxVueVersion = "Ver 0.1.0";
 // 定义全局的API
 let prototypes = {
   $HxVueVersion,

@@ -17,18 +17,16 @@ export default {
         codeType: "phone", //phone为手机验证码/img为图片验证码
         column: {
           userName: {
-            // hide: true,
             label: "用户名",
-            tip: "改变字段y4ey4为user",
-            // prop: 'user',
-            // placeholder:'',
+            tip: "改变字段为user",
+            prop: "user",
+            placeholder: "请输入用户名",
             autocomplete: "off",
             rules: { required: true, message: "请输入用户名", trigger: "blur" }
           },
           password: {
             label: "密码",
-            // prop: 'pass',
-            // placeholder:'',
+            placeholder: "请输入密码",
             autocomplete: "off",
             rules: { required: true, message: "请输入密码", trigger: "blur" }
           },
@@ -48,6 +46,7 @@ export default {
       "内容：日志信息输出！",
       "primary"
     );
+    this.$HxVueWatermark({ text: "组件版本：" + this.$HxVueVersion });
   }
 };
 </script>
