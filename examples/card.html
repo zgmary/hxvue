@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>卡片例子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1645558_jbkkanthj6r.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+
+<div id="app">
+    <h2>网站标签卡片</h2>
+    <hxvue-card :option="option"></hxvue-card>
+    <hr />
+<!--    <h2>相似网站卡片</h2>
+    <hxvue-card :option="option1"></hxvue-card>
+    <hr />
+    <h2>固定大小图片卡片</h2>
+    <hxvue-card :option="option2"></hxvue-card>-->
+</div>
+
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                option: {
+                    cardSpan: 4,
+                    gotoWebClick: function (index) {
+                        console.log(index);
+                        this.option.data[index].viewNum++;
+                    },
+                    authorClick: function (index) {
+                        this.$message.success("开始加载新数据");
+                        console.log(JSON.stringify(this.option.data[index]));
+                        this.option.data = [
+                            {
+                                href: "http://www.163.com",
+                                target: '_blank',
+                                logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                                title: '新标题1',
+                                content: '新数据1',
+                                authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                                likeNum: '11',
+                                viewNum: '22'
+                            },
+                            {
+                                href: "http://www.163.com",
+                                target: '_blank',
+                                logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                                title: '新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题',
+                                content: '新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据',
+                                authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                                likeNum: '31',
+                                viewNum: '32'
+                            }
+                        ]
+                    },
+                    iconLoveClick: function (index) {
+                        this.option.data[index].likeNum++;
+                        console.log(JSON.stringify(this.option.data[index]));
+                    },
+/*                    iconLove: "el-icon-phone",
+                    iconView: "el-icon-s-goods",*/
+                    data: [
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '1000',
+                            viewNum: '2000'
+                        },
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '3',
+                            viewNum: '4'
+                        },
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '5',
+                            viewNum: '6'
+                        },
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '7',
+                            viewNum: '8'
+                        },
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '9',
+                            viewNum: '10'
+                        },
+                        {
+                            href: "http://www.baidu.com",
+                            target: '_blank',
+                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
+                            title: '香菜',
+                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
+                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                            likeNum: '11',
+                            viewNum: '12'
+                        }
+                    ]
+                },
+            }
+        },
+        methods: {
+        }
+    })
+</script>
+
+</html>

@@ -116,12 +116,30 @@ export default create({
       }
     }
   },
+  data() {
+    return {
+      text: "",
+      nowTime: "",
+      check: {},
+      formData: {
+        userName: "",
+        password: "",
+        code: ""
+      }
+    };
+  },
+  created() {
+    this.text = INIT_TEXT;
+  },
   computed: {
     labelWidth: function() {
       return this.option.labelWidth || 80;
     },
     time: function() {
       return this.option.time || 60;
+    },
+    codeType: function() {
+      return this.option.codeType || "img";
     },
     isImg: function() {
       return this.codeType === "img";
@@ -147,22 +165,6 @@ export default create({
     codeSrc: function() {
       return this.option.codeSrc || "";
     }
-  },
-  data() {
-    return {
-      text: "",
-      nowTime: "",
-      check: {},
-      codeType: this.option.codeType || "img",
-      formData: {
-        userName: "",
-        password: "",
-        code: ""
-      }
-    };
-  },
-  created() {
-    this.text = INIT_TEXT;
   },
   methods: {
     onSend: function() {
@@ -207,7 +209,7 @@ export default create({
 </script>
 
 <style scoped lang="scss">
-el-form-item {
+.el-form-item {
   margin-bottom: 18px;
 }
 .onSubmit {

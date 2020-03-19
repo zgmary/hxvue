@@ -21,8 +21,12 @@
 </noscript>
 
 <div id="app">
-    <h2>普通用户登录</h2>
-    <hxvue-login :option="option" @submit="submit">
+    <h2>普通用户登录
+    <el-button type="primary" @click="changeOption">
+        动态切换参数
+    </el-button>
+    </h2>
+    <hxvue-login :option="option" @submit="submit" @send="send">
     </hxvue-login>
     <hr />
     <h2>图片验证码登录</h2>
@@ -170,6 +174,7 @@
         methods: {
             refresh() {
                 this.$message.success('图片验证码刷新成功')
+                this.option.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
                 this.option1.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
                 this.option4.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
             },
@@ -180,6 +185,32 @@
             submit(form) {
                 this.$message.success(JSON.stringify(form))
                 console.log(form);
+            },
+            changeOption(){
+                this.option = {
+                    width: 400,
+                    time: 50,
+                        codeType: 'phone',
+                        codeSrc: '',
+                        column: {
+                        userName: {
+                            label: '用户名',
+                                placeholder: '手机号/邮箱/用户名',
+                                autocomplete: 'off',
+                                rules: { required: true, message: '请输入用户名', trigger: 'blur' }
+                        },
+                        password: {
+                            label: '密码',
+                                autocomplete: 'off',
+                                rules: { required: true, message: '请输入密码', trigger: 'blur' }
+                        },
+                        code: {
+                            label: '验证码',
+                            autocomplete: 'off',
+                            rules: { required: true, message: '请输验证码', trigger: 'blur' }
+                        }
+                    }
+                }
             }
         }
     })
