@@ -50,7 +50,7 @@
 <script>
 import create from "../../core/create";
 export default create({
-  name: "card",
+  name: "cardtext",
   props: {
     option: {
       type: Object,
@@ -103,9 +103,10 @@ export default create({
     display: flex;
     padding: 12px;
     &-logo {
-      height: 36px;
-      width: 36px;
-      border-radius: 36px;
+      $logoSize: 36px; //定义局部变量
+      height: $logoSize;
+      width: $logoSize;
+      border-radius: $logoSize;
       margin-right: 12px;
       margin-top: 15px;
     }
@@ -119,7 +120,7 @@ export default create({
       }
       &-content {
         @include text-display(2);
-        height: 34px;
+        height: 32px;
         color: rgba(0, 0, 0, 0.45);
       }
     }
@@ -127,8 +128,7 @@ export default create({
   &-menu {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    height: 24px;
+    height: 28px;
     background: #f7f9fa;
     &-author {
       padding-top: 3px;
