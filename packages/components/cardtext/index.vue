@@ -90,9 +90,9 @@ export default create({
   }
   &-item {
     margin-bottom: 16px;
-    height: 110px;
+    height: 116px;
     font-size: 10px;
-    line-height: 1.5;
+    line-height: 20px;
     background-color: #fff;
     box-sizing: border-box;
     a {
@@ -101,7 +101,7 @@ export default create({
   }
   &-body {
     display: flex;
-    padding: 12px;
+    padding: 10px;
     &-logo {
       $logoSize: 36px; //定义局部变量
       height: $logoSize;
@@ -120,7 +120,7 @@ export default create({
       }
       &-content {
         @include text-display(2);
-        height: 32px;
+        height: 40px;
         color: rgba(0, 0, 0, 0.45);
       }
     }
@@ -131,7 +131,7 @@ export default create({
     height: 28px;
     background: #f7f9fa;
     &-author {
-      padding-top: 3px;
+      padding-top: 4px;
     }
     &-icon {
       display: flex;

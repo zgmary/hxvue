@@ -1,0 +1,16 @@
+// 默认将输出webkit前缀，moz前缀和标准
+@mixin prefixer($property, $value, $prefixes: webkit moz) {
+  #{$property}: $value;
+
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: #{$value};
+    } @else if $prefix == moz {
+      -moz-#{$property}: #{$value};
+    } @else if $prefix == o {
+      -o-#{$property}: #{$value};
+    } @else if $prefix == ms {
+      -ms-#{$property}: #{$value};
+    }
+  }
+}
