@@ -65,7 +65,15 @@
                     authorClick: function (item, index) {
                         this.$message.success("开始加载同一用户上传的图片数据:" + index );
                         console.log(JSON.stringify(item));
-                        this.option.data = sourceImages.slice(imageNum-10);
+                        this.option.data = [
+                            {
+                                thumbUrl: "https://lokeshdhakar.com/projects/lightbox2/images/thumb-5.jpg",
+                                imgUrl: "https://lokeshdhakar.com/projects/lightbox2/images/image-5.jpg",
+                                authorUrl: 'https://avatar.gitee.com/uploads/61/632261_smallweigit.jpg!avatar100?1518660401',
+                                likeNum: "13",
+                                downLoadNum: "54"
+                            }
+                        ];
                     },
                     iconLoveClick: function (item, index) {
                         item.likeNum++;

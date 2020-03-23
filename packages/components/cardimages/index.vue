@@ -10,13 +10,14 @@
       >
         <div class="card-item">
           <div class="card-image" :style="{ height: setPx(imgHeight) }">
-            <el-image
+            <img
               :src="item.thumbUrl"
-              :style="{ height: setPx(imgHeight) }"
-              :fit="fitModel"
+              :height="setPx(imgHeight)"
+              width="100%"
+              :object-fit="fitModel"
+              alt="图像获取失败！"
               @click="imageClick(item, index)"
-            >
-            </el-image>
+            />
           </div>
           <div class="card-menu">
             <div
@@ -122,12 +123,11 @@ export default create({
 .card {
   &-item {
     >>> .el-image-viewer__mask {
-      opacity: 0.1;
+      background: rgba(0, 0, 0, 0.08);
     }
     margin-bottom: 6px;
     background-color: #fff;
     box-sizing: border-box;
-    font-size: 10px;
     &:hover {
       box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3),
         0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -151,6 +151,7 @@ export default create({
     &-icon {
       display: flex;
       align-items: center;
+      font-size: 10px;
       i {
         font-size: 18px;
       }
