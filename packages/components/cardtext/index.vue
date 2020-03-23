@@ -11,7 +11,7 @@
         <el-card class="card-item" shadow="hover">
           <a
             :href="item.href || 'javascript:void(0);'"
-            @click="gotoWebClick ? gotoWebClick(index) : ''"
+            @click="gotoWebClick ? gotoWebClick(item, index) : ''"
             :target="item.target"
           >
             <div class="card-body">
@@ -25,13 +25,16 @@
           <div class="card-menu">
             <div
               class="card-menu-author"
-              @click="authorClick ? authorClick(index) : ''"
+              @click="authorClick ? authorClick(item, index) : ''"
             >
               <el-avatar :size="20" :src="item.authorUrl"></el-avatar>
             </div>
+            <div></div>
+            <div></div>
+            <div></div>
             <div
               class="card-menu-icon"
-              @click="iconLoveClick ? iconLoveClick(index) : ''"
+              @click="iconLoveClick ? iconLoveClick(item, index) : ''"
             >
               <i :class="iconLove" :style="{ color: item.color || 'red' }"></i>
               <p>{{ item.likeNum }}</p>

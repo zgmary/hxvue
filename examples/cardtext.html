@@ -7,12 +7,10 @@
 
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1645558_jbkkanthj6r.css">
     <link rel="stylesheet" href="../lib/hxvue.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
-
 </head>
 
 <body>
@@ -41,13 +39,13 @@
             return {
                 option: {
                     cardSpan: 4,
-                    gotoWebClick: function (index) {
+                    gotoWebClick: function (item, index) {
                         console.log(index);
-                        this.option.data[index].viewNum++;
+                        item.viewNum++;
                     },
-                    authorClick: function (index) {
+                    authorClick: function (item, index) {
                         this.$message.success("开始加载新数据");
-                        console.log(JSON.stringify(this.option.data[index]));
+                        console.log(JSON.stringify(item));
                         this.option.data = [
                             {
                                 href: "http://www.163.com",
@@ -71,9 +69,9 @@
                             }
                         ]
                     },
-                    iconLoveClick: function (index) {
-                        this.option.data[index].likeNum++;
-                        console.log(JSON.stringify(this.option.data[index]));
+                    iconLoveClick: function (item, index) {
+                        item.likeNum++;
+                        console.log(JSON.stringify(item));
                     },
 /*                    iconLove: "el-icon-phone",
                     iconView: "el-icon-s-goods",*/
