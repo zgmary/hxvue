@@ -11,6 +11,7 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
 </head>
 
 <body>
@@ -21,8 +22,8 @@
 
 <div id="app">
     <h2>网站标签卡片</h2>
-    <hxvue-cardtext :option="option"></hxvue-cardtext>
     <hr />
+    <hxvue-cardtext :option="option"></hxvue-cardtext>
 <!--    <h2>相似网站卡片</h2>
     <hxvue-card :option="option1"></hxvue-card>
     <hr />
@@ -33,6 +34,24 @@
 </body>
 
 <script>
+    //开始生成测试数据
+    const demoData = [];
+    const base = parseInt((Math.random() * 60), 10) + 10;
+    const demoDataNum = 60;
+    for (let i = 0; i < demoDataNum; i++) {
+        let likeNum = Mock.mock('@integer(1000, 2000)');
+        let viewNum = Mock.mock('@integer(60, 100)');
+        demoData.push({
+            href: "http://www.163.com",
+            target: '_blank',
+            logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
+            title: Mock.mock('@ctitle(3, 30)'),
+            content: Mock.mock('@cparagraph'),
+            authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
+            likeNum: `${likeNum}`,
+            viewNum: `${viewNum}`
+        })
+    }
     new Vue({
         el: '#app',
         data() {
@@ -46,28 +65,7 @@
                     authorClick: function (item, index) {
                         this.$message.success("开始加载新数据");
                         console.log(JSON.stringify(item));
-                        this.option.data = [
-                            {
-                                href: "http://www.163.com",
-                                target: '_blank',
-                                logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                                title: '新标题1',
-                                content: '新数据1',
-                                authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                                likeNum: '11',
-                                viewNum: '22'
-                            },
-                            {
-                                href: "http://www.163.com",
-                                target: '_blank',
-                                logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                                title: '新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题新标题',
-                                content: '新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据新数据',
-                                authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                                likeNum: '31',
-                                viewNum: '32'
-                            }
-                        ]
+                        this.option.data = demoData.slice(demoDataNum/2);
                     },
                     iconLoveClick: function (item, index) {
                         item.likeNum++;
@@ -75,68 +73,7 @@
                     },
 /*                    iconLove: "el-icon-phone",
                     iconView: "el-icon-s-goods",*/
-                    data: [
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: '香菜其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '1000',
-                            viewNum: '2000'
-                        },
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: 'TestMyHome',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '3',
-                            viewNum: '4'
-                        },
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: '香菜',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '5',
-                            viewNum: '6'
-                        },
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: '香菜',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '7',
-                            viewNum: '8'
-                        },
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: '香菜',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '9',
-                            viewNum: '10'
-                        },
-                        {
-                            href: "http://www.baidu.com",
-                            target: '_blank',
-                            logoUrl: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-                            title: '香菜',
-                            content: '殷其雷，天阴霾，雨零耶，盼君留。 殷其雷，纵不零，卿若留，吾将从。',
-                            authorUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-                            likeNum: '11',
-                            viewNum: '12'
-                        }
-                    ]
+                    data: demoData
                 },
             }
         },
