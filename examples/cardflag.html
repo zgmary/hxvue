@@ -27,80 +27,45 @@
 		</noscript>
 
 		<div id="app">
-			<hxvue-cardflag :option="option" @view-count="viewCount" @like-count="likeCount"></hxvue-cardflag>
+			<hxvue-cardflag :option="option"></hxvue-cardflag>
 		</div>
 	</body>
 
 	<script>
+		//开始生成测试数据
+		const demoData = [];
+		const base = parseInt((Math.random() * 60), 10) + 10;
+		const demoDataNum = 60;
+		for (let i = 0; i < demoDataNum; i++) {
+			let likeNum = Mock.mock('@integer(1, 100)');
+			let viewNum = Mock.mock('@integer(1000, 2000)');
+			demoData.push({
+				href: "http://www.163.com",
+				target: '_blank',
+				logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
+				title: Mock.mock('@ctitle(3, 30)'),
+				content: Mock.mock('@cparagraph'),
+				tag: ["收费", "公司"],
+				likeNum: `${likeNum}`,
+				viewNum: `${viewNum}`
+			})
+		}
 		new Vue({
 			el: '#app',
 			data() {
 			  return {
 			    option: {
-			      // span: 4,
-			      //gutter: 6,
-			      viewCount(index) {
-			        this.$message.success("请看控制台");
-			        console.log(index);
-			        this.option.data[index].viewNum++;
-			      },
-			      likeCount(index) {
-			        this.$message.success("请看控制台");
-			        console.log(index);
-			        this.option.data[index].likeNum++;
-			      },
-			      data: [
-			        {
-			          href: "http://www.baidu.com",
-			          target: "_blank",
-			          logoUrl: "https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png",
-			          title: "Aliplay",
-			          content: "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件",
-			          tag: ["收费", "公司"],
-			          likeNum: "5",
-			          viewNum: "10"
-			        },
-			        {
-			          href: "http://www.163.com",
-			          target: "_blank",
-			          logoUrl: "https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png",
-			          title: "Aliplay",
-			          content: "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件",
-			          tag: ["免费", "个人"],
-			          likeNum: "10",
-			          viewNum: "15"
-			        },
-			        {
-			          href: "http://www.qq.com",
-			          target: "_blank",
-			          logoUrl: "https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png",
-			          title: "Aliplay",
-			          content: "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件",
-			          tag: ["免费", "个人"],
-			          likeNum: "20",
-			          viewNum: "25"
-			        },
-			        {
-			          href: "https://www.sohu.com/",
-			          target: "_blank",
-			          logoUrl: "https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png",
-			          title: "Aliplay",
-			          content: "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件",
-			          tag: ["免费", "个人"],
-			          likeNum: "25",
-			          viewNum: "30"
-			        },
-			        {
-			          href: "https://www.taobao.com/",
-			          target: "_blank",
-			          logoUrl: "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
-			          title: "Aliplay",
-			          content: "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件",
-			          tag: ["免费", "个人"],
-			          likeNum: "35",
-			          viewNum: "40"
-			        }
-			      ]
+			    	cardSpan: 4,
+			      	gutter: 6,
+				  	gotoWebClick: function(item, index) {
+			        	console.log(index);
+			        	item.viewNum++;
+			      	},
+				  	iconLoveClick: function(item, index) {
+			        	console.log(index);
+			        	item.likeNum++;
+			      	},
+			      	data: demoData
 			    }
 			  }
 			}

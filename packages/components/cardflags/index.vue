@@ -1,35 +1,52 @@
 <template>
-  <el-row type="flex" justify="space-around" :gutter="gutter">
-    <el-col :span="span" v-for="(item, index) in data" :key="index">
+  <el-row :span="24" :gutter="gutter">
+    <el-col
+      :md="cardSpan"
+      :xs="12"
+      :sm="8"
+      v-for="(item, index) in cardData"
+      :key="index"
+    >
       <div class="card" :title="item.content">
-        <div class="card_head">
-          <div class="card_head_left">
+        <div class="card-head">
+          <div class="card-head-icon">
             <i
-              class="el-icon-star-off"
-              @click="likeCount ? likeCount(index) : ''"
-            ></i
-            ><span>{{ item.likeNum }}</span>
+              :class="iconLove"
+              :style="{ color: item.color || 'red' }"
+              @click="iconLoveClick ? iconLoveClick(item, index) : ''"
+            ></i>
+            <span>{{ item.likeNum }}</span>
           </div>
-          <div class="card_head_right">
-            <i class="el-icon-view"></i><span>{{ item.viewNum }}</span>
+          <div class="card-head-icon">
+            <i :class="iconView" :style="{ color: item.color || 'red' }"></i>
+            <span>{{ item.viewNum }}</span>
           </div>
         </div>
-        <a :href="item.href || 'javascript:void(0);'" :target="item.target">
-          <div class="card_body" @click="viewCount ? viewCount(index) : ''">
-            <div class="card_body_img"><img :src="item.logoUrl" /></div>
-            <div class="card_body_info">
-              <div class="card_body_info_title">{{ item.title }}</div>
+        <a
+          :href="item.href || 'javascript:void(0);'"
+          @click="gotoWebClick ? gotoWebClick(item, index) : ''"
+          :target="item.target"
+        >
+          <div class="card-body">
+            <img
+              class="card-body-img"
+              :src="item.logoUrl"
+              object-fit="fill"
+              alt="图像获取失败！"
+            />
+            <div class="card-body-info">
+              <div class="card-body-info-title">{{ item.title }}</div>
               <div
-                class="card_body_info_tag"
+                class="card-body-info-tag"
                 v-for="(tagItem, tagIndex) in item.tag"
                 :key="tagIndex"
               >
                 {{ tagItem }}
               </div>
-              <div class="card_body_info_arrow">
+              <div class="card-body-info-arrow">
                 <i class="el-icon-right"></i>
               </div>
-              <div class="card_body_info_content">{{ item.content }}</div>
+              <div class="card-body-info-content">{{ item.content }}</div>
             </div>
           </div>
         </a>
@@ -45,8 +62,10 @@ export default create({
   name: "cardflag",
   data() {
     return {
-      likeCount: this.option.likeCount,
-      viewCount: this.option.viewCount
+      iconLove: this.option.iconLove || "el-icon-star-off",
+      iconView: this.option.iconView || "el-icon-view",
+      iconLoveClick: this.option.iconLoveClick,
+      gotoWebClick: this.option.gotoWebClick
     };
   },
   props: {
@@ -58,13 +77,13 @@ export default create({
     }
   },
   computed: {
-    span() {
-      return this.option.span || 4;
+    cardSpan() {
+      return this.option.cardSpan || 4;
     },
     gutter() {
       return this.option.gutter || 20;
     },
-    data() {
+    cardData() {
       return this.option.data || [];
     }
   }
@@ -73,6 +92,14 @@ export default create({
 
 <style scoped lang="scss">
 $time: 0.5s;
+@mixin text-display() {
+  //超出内容隐藏
+  overflow: hidden;
+  //内容不换行
+  white-space: nowrap;
+  //设置超出内容为省略号
+  text-overflow: ellipsis;
+}
 .card {
   border: 1px solid darkgray;
   border-radius: 10px;
@@ -80,67 +107,78 @@ $time: 0.5s;
   box-shadow: 0 2px 8px #55504c;
   position: relative;
   bottom: 0;
+  height: 100px;
+  margin-bottom: 16px;
+  font-size: 10px;
+  background-color: #fff;
   //过渡效果
   transition: bottom $time;
   &:hover {
     bottom: -5px;
-  }
-  //当前元素的hover改变子元素的样式
-  &:hover &_body_info_arrow {
-    visibility: visible;
-  }
-  &:hover &_body_img {
-    width: 45px;
-    height: 45px;
+    .card-body-info-arrow {
+      visibility: visible;
+    }
+    .card-body-img {
+      width: 45px;
+      height: 45px;
+    }
   }
   a {
     text-decoration: none;
   }
   //采用flex布局之后不用分别对left和right进行float
-  &_head {
+  &-head {
     display: flex;
     justify-content: space-between;
-    padding: 5px 10px;
-  }
-  &_body {
-    display: flex;
-    padding: 5px 10px;
-    &_img {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      overflow: hidden;
-      transition: width $time, height $time;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    &_info {
-      padding-left: 10px;
-      &_title {
-        display: inline;
+    padding: 10px 12px;
+    &-icon {
+      display: flex;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.45);
+      i {
         font-size: 16px;
       }
-      &_tag {
+      span {
+        margin-left: 5px;
+      }
+    }
+  }
+  &-body {
+    display: flex;
+    padding: 5px 10px;
+    &-img {
+      $size: 40px;
+      width: $size;
+      height: $size;
+      border-radius: $size;
+      transition: width $time, height $time;
+      flex-shrink: 0;
+    }
+    &-info {
+      padding-left: 10px;
+      flex: auto;
+      color: rgba(0, 0, 0, 0.45);
+      @include text-display;
+      &-title {
+        display: inline;
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 14px;
+      }
+      &-tag {
         display: inline;
         margin-left: 10px;
         background-color: gainsboro;
-        font-size: 10px;
       }
-      &_arrow {
-        float: right;
+      &-arrow {
+        display: inline;
+        position: absolute;
+        right: 10px;
         visibility: hidden;
         transition: visibility $time;
       }
-      &_content {
+      &-content {
         padding-top: 5px;
-        font-size: 12px;
-        //超出部分显示省略号
-        width: 150px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        @include text-display;
       }
     }
   }
