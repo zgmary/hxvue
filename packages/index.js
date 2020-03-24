@@ -2,10 +2,12 @@ import HelloWord from "./components/helloword";
 import Login from "./components/login";
 import CardText from "./components/cardtext";
 import CardImgs from "./components/cardimages";
+import CardFlags from "./components/cardflags";
+
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 // 存储组件列表
-const components = [HelloWord, Login, CardText, CardImgs];
+const components = [HelloWord, Login, CardText, CardImgs, CardFlags];
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.0";
 // 定义全局的API
@@ -35,5 +37,6 @@ export default {
   HelloWord,
   Login,
   CardText,
-  CardImgs
+  CardImgs,
+  CardFlags
 };

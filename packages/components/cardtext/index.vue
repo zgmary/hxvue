@@ -10,19 +10,47 @@
       >
         <el-card class="card-item" shadow="hover">
           <a
-            :href="item.href || 'javascript:void(0);'"
-            @click="gotoWebClick ? gotoWebClick(item, index) : ''"
-            :target="item.target"
+            :href="[cardMenuSeen ? item.href || 'javascript:void(0);' : '##']"
+            @click="
+              gotoWebClick && cardMenuSeen ? gotoWebClick(item, index) : ''
+            "
+            :target="[cardMenuSeen ? item.target : '_self']"
           >
             <div class="card-body">
-              <img class="card-body-logo" :src="item.logoUrl" />
+              <img
+                :class="[
+                  cardMenuSeen ? 'card-body-logo' : 'card-body-largelogo'
+                ]"
+                :src="item.logoUrl"
+                object-fit="fill"
+                alt="图像获取失败！"
+              />
               <div class="=card-body-detail">
-                <div class="card-body-detail-title">{{ item.title }}</div>
-                <div class="card-body-detail-content">{{ item.content }}</div>
+                <a
+                  :href="item.href || 'javascript:void(0);'"
+                  @click="
+                    gotoWebClick && cardMenuSeen
+                      ? ''
+                      : gotoWebClick(item, index)
+                  "
+                  :target="item.target"
+                >
+                  <div class="card-body-detail-title">{{ item.title }}</div>
+                  <div class="card-body-detail-content">{{ item.content }}</div>
+                </a>
+                <div class="card-body-detail-similarity" v-if="!cardMenuSeen">
+                  相似度：{{ item.likeNum }}%
+                  <i
+                    title="收藏"
+                    :class="iconLove"
+                    :style="{ color: item.color || 'red' }"
+                    @click="iconLoveClick ? iconLoveClick(item, index) : ''"
+                  ></i>
+                </div>
               </div>
             </div>
           </a>
-          <div class="card-menu">
+          <div class="card-menu" v-if="cardMenuSeen">
             <div
               class="card-menu-author"
               @click="authorClick ? authorClick(item, index) : ''"
@@ -74,8 +102,15 @@ export default create({
   computed: {
     cardData: function() {
       return this.option.data || [];
+    },
+    cardType: function() {
+      return this.option.cardType || "cardText";
+    },
+    cardMenuSeen: function() {
+      return this.cardType === "cardText";
     }
-  }
+  },
+  methods: {}
 });
 </script>
 
@@ -86,6 +121,14 @@ export default create({
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line-clamp;
+}
+@mixin logo-display($logoSize: 36px, $logoRadius: 36px) {
+  height: $logoSize;
+  width: $logoSize;
+  -webkit-border-radius: $logoRadius;
+  border-radius: $logoRadius;
+  margin-right: 12px;
+  flex-shrink: 0;
 }
 .card {
   >>> .el-card__body {
@@ -106,12 +149,11 @@ export default create({
     display: flex;
     padding: 10px;
     &-logo {
-      $logoSize: 36px; //定义局部变量
-      height: $logoSize;
-      width: $logoSize;
-      border-radius: $logoSize;
-      margin-right: 12px;
+      @include logo-display;
       margin-top: 15px;
+    }
+    &-largelogo {
+      @include logo-display(96px, 3px);
     }
     &-detail {
       flex: 1;
@@ -125,6 +167,15 @@ export default create({
         @include text-display(2);
         height: 40px;
         color: rgba(0, 0, 0, 0.45);
+      }
+      &-similarity {
+        margin-top: 6px;
+        display: flex;
+        justify-content: space-between;
+        color: rgba(0, 0, 0, 0.45);
+        i {
+          font-size: 20px;
+        }
       }
     }
   }

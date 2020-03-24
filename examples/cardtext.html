@@ -39,8 +39,8 @@
     const base = parseInt((Math.random() * 60), 10) + 10;
     const demoDataNum = 60;
     for (let i = 0; i < demoDataNum; i++) {
-        let likeNum = Mock.mock('@integer(1000, 2000)');
-        let viewNum = Mock.mock('@integer(60, 100)');
+        let likeNum = Mock.mock('@integer(1, 100)');
+        let viewNum = Mock.mock('@integer(1000, 2000)');
         demoData.push({
             href: "http://www.163.com",
             target: '_blank',
@@ -57,7 +57,12 @@
         data() {
             return {
                 option: {
-                    cardSpan: 4,
+                    cardSpan: 8,
+                    gutter: 10,
+                    cardType: "similarityText",
+                    /*iconLove: "el-icon-phone",
+                    iconView: "el-icon-s-goods",*/
+                    data: demoData,
                     gotoWebClick: function (item, index) {
                         console.log(index);
                         item.viewNum++;
@@ -68,12 +73,10 @@
                         this.option.data = demoData.slice(demoDataNum/2);
                     },
                     iconLoveClick: function (item, index) {
+                        this.$message.success("点击了收藏键！");
                         item.likeNum++;
                         console.log(JSON.stringify(item));
-                    },
-/*                    iconLove: "el-icon-phone",
-                    iconView: "el-icon-s-goods",*/
-                    data: demoData
+                    }
                 },
             }
         },
