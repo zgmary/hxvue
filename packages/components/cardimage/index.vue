@@ -71,7 +71,7 @@
 import create from "../../core/create";
 import ElImageViewer from "element-ui/packages/image/src/image-viewer";
 export default create({
-  name: "cardimgs",
+  name: "cardimg",
   components: { ElImageViewer },
   props: {
     option: {
