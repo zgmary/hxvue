@@ -35,17 +35,17 @@
               alt="图像获取失败！"
             />
             <div class="card-body-info">
-              <div class="card-body-info-title">{{ item.title }}</div>
-              <div
+              <span class="card-body-info-title">{{ item.title }}</span>
+              <span
                 class="card-body-info-tag"
                 v-for="(tagItem, tagIndex) in item.tag"
                 :key="tagIndex"
               >
                 {{ tagItem }}
-              </div>
-              <div class="card-body-info-arrow">
+              </span>
+              <span class="card-body-info-arrow">
                 <i class="el-icon-right"></i>
-              </div>
+              </span>
               <div class="card-body-info-content">{{ item.content }}</div>
             </div>
           </div>
@@ -155,22 +155,19 @@ $time: 0.5s;
       flex-shrink: 0;
     }
     &-info {
-      padding-left: 10px;
-      flex: auto;
+      margin-left: 10px;
       color: rgba(0, 0, 0, 0.45);
       @include text-display;
       &-title {
-        display: inline;
         color: rgba(0, 0, 0, 0.85);
         font-size: 14px;
       }
       &-tag {
-        display: inline;
         margin-left: 10px;
         background-color: gainsboro;
+        border-radius: 3px;
       }
       &-arrow {
-        display: inline;
         position: absolute;
         right: 10px;
         visibility: hidden;
