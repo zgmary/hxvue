@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>文本溢出压缩例子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #e8eeec;
+            font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        }
+        .link {
+            color: #409EFF;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .demo-line {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+
+<div id="app">
+    <h2>文本溢出压缩例子</h2>
+    <hr />
+    <hxvue-text-ellipsis :text="text" :height="50" :width="200" @show="show" @hide="hide">
+        <small slot="more">...</small>
+    </hxvue-text-ellipsis>
+    <div class="demo-line"></div>
+    <hxvue-text-ellipsis :text="text" :height="100" :width="200" :text-style="textStyle" @show="show" @hide="hide">
+        <small slot="more">...</small>
+        <el-tag slot="before" size="small">new</el-tag>
+        <small slot="after">[09/14]</small>
+    </hxvue-text-ellipsis>
+    <div class="demo-line"></div>
+    <hxvue-text-ellipsis :text="text" :height="100" :width="200" :is-limit-height="isLimitHeight" @show="show" @hide="hide">
+        <el-tag slot="before" size="small">new</el-tag>
+        <small slot="more"><span>...</span><span class="link" @click="isLimitHeight=false">查看更多</span></small>
+        <small slot="after" class="link" v-if="!isLimitHeight" @click="isLimitHeight=true">收起</small>
+    </hxvue-text-ellipsis>
+    <div class="demo-line"></div>
+    <hxvue-text-ellipsis :text="text" :height="400" :width="200" use-tooltip placement="top" @show="show" @hide="hide">
+        <small slot="more">...</small>
+    </hxvue-text-ellipsis>
+</div>
+
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                text: Mock.mock('@cparagraph'),
+                isLimitHeight: true,
+                textStyle: {
+                    color: 'red',
+                    fontSize: '13px'
+                }
+            }
+        },
+        methods: {
+            show() {
+                this.$message.success('show');
+                console.log('show');
+            },
+            hide() {
+                this.$message.success('hide');
+                console.log('hide');
+            }
+        }
+    })
+</script>
+
+</html>

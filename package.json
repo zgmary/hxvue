@@ -1,6 +1,6 @@
 {
   "name": "@zldz/hxvue",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A Teacher Demo",
   "main": "lib/hxvue.umd.min.js",
   "private": false,
