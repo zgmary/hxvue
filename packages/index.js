@@ -1,21 +1,14 @@
-import HelloWord from "./components/helloword";
-import Login from "./components/login";
-import CardText from "./components/cardtext";
-import CardImg from "./components/cardimage";
-import CardFlag from "./components/cardflag";
-import TextEllipsis from "./components/text-ellipsis";
+import Login from "./components/Login";
+import CardText from "./components/CardText";
+import CardImg from "./components/CardImage";
+import CardFlag from "./components/CardFlag";
+import TextEllipsis from "./components/TextEllipsis";
+import SvgIcon from "./components/SvgIcon";
 
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 // 存储组件列表
-const components = [
-  HelloWord,
-  Login,
-  CardText,
-  CardImg,
-  CardFlag,
-  TextEllipsis
-];
+const components = [Login, CardText, CardImg, CardFlag, TextEllipsis, SvgIcon];
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
 // 定义全局的API
@@ -41,11 +34,5 @@ if (window && window.Vue) install(window.Vue);
 export default {
   // 导出的对象必须具有 install，才能被 Vue.use() 方法安装
   install,
-  // 以下是具体的组件列表
-  HelloWord,
-  Login,
-  CardText,
-  CardImg,
-  CardFlag,
-  TextEllipsis
+  components
 };

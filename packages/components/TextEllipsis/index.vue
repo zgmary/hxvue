@@ -7,7 +7,7 @@
       :placement="placement"
     >
       <span>
-        <span ref="text" :key="keyIndex" :style="textStyle">{{ text }}</span>
+        <span ref="text" :key="keyIndex" :style="style">{{ text }}</span>
       </span>
     </el-tooltip>
     <span class="textEllipsis-more" ref="more">
@@ -40,7 +40,7 @@ export default create({
       type: String,
       default: "top"
     },
-    textStyle: {
+    style: {
       type: Object,
       default: () => {
         return textStyleDefault;

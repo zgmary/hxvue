@@ -23,8 +23,8 @@ module.exports = {
     };
   },*/
   chainWebpack: config => {
-    config.resolve.alias.set("@", resolve("./src"));
-    config.resolve.alias.set("components", resolve("./packages/components"));
+    config.resolve.alias.set("@", resolve("src"));
+    config.resolve.alias.set("components", resolve("packages/components"));
     config.module.rules.delete("svg");
     config.module
       .rule("svg-sprite-loader")

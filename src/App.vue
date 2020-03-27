@@ -2,6 +2,10 @@
   <div id="app">
     <!--    <img alt="Vue logo" src="./assets/logo.png" />-->
     <!--    <HelloWorld msg="Welcome to Your Vue.js App" />-->
+    <h3>SVG Sprite使用示意</h3>
+    <hr />
+    <hxvue-svg-icon icon-class="icon-lock" :style="iconStyle"></hxvue-svg-icon>
+    <hr />
     <hxvue-login :option="option"></hxvue-login>
   </div>
 </template>
@@ -11,6 +15,12 @@ export default {
   name: "App",
   data() {
     return {
+      iconStyle: {
+        margin: "16px",
+        fill: "red",
+        width: "2em",
+        height: "2em"
+      },
       option: {
         width: 400,
         time: 60,

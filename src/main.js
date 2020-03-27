@@ -4,6 +4,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import Hxvue from "../lib/hxvue.umd";
 import "../lib/hxvue.css";
 import App from "./App.vue";
+import "@/icons";
 
 Vue.config.productionTip = false;
 

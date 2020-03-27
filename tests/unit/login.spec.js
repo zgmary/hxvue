@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import Vue from "vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-import Login from "components/login/index.vue";
+import Login from "components/Login/index.vue";
 
 Vue.use(ElementUI);
 
