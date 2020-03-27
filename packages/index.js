@@ -4,13 +4,24 @@ import CardImg from "./components/CardImage";
 import CardFlag from "./components/CardFlag";
 import TextEllipsis from "./components/TextEllipsis";
 import SvgIcon from "./components/SvgIcon";
+import Avatar from "./components/Avatar";
 
-import $HxVueLog from "./plugin/logs/";
-import { $HxVueWatermark } from "./plugin/canvas/";
-// 存储组件列表
-const components = [Login, CardText, CardImg, CardFlag, TextEllipsis, SvgIcon];
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
+import $HxVueLog from "./plugin/logs/";
+import { $HxVueWatermark } from "./plugin/canvas/";
+
+// 存储组件列表
+const components = [
+  Login,
+  CardText,
+  CardImg,
+  CardFlag,
+  TextEllipsis,
+  SvgIcon,
+  Avatar
+];
+
 // 定义全局的API
 let prototypes = {
   $HxVueVersion,

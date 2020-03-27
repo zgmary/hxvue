@@ -26,9 +26,7 @@
             >
               <el-avatar :size="20" :src="item.authorUrl"></el-avatar>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div v-for="n in 3" :key="n"></div>
             <div
               class="card-menu-icon"
               @click="iconLoveClick ? iconLoveClick(item, index) : ''"
@@ -123,7 +121,7 @@ export default create({
 .card {
   &-item {
     >>> .el-image-viewer__mask {
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(0, 0, 0, 0.05);
     }
     margin-bottom: 6px;
     background-color: #fff;

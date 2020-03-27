@@ -1,5 +1,5 @@
 <template>
-  <div class="textEllipsis" :style="{ width: this.setPx(width, '100%') }">
+  <div :class="bemCss()" :style="{ width: this.setPx(width, '100%') }">
     <slot name="before"></slot>
     <el-tooltip
       :content="text"
@@ -10,7 +10,7 @@
         <span ref="text" :key="keyIndex" :style="style">{{ text }}</span>
       </span>
     </el-tooltip>
-    <span class="textEllipsis-more" ref="more">
+    <span :class="bemCss('more')" ref="more">
       <slot name="more" v-show="oversize"></slot>
     </span>
     <slot name="after"></slot>
@@ -113,8 +113,8 @@ export default create({
 </script>
 
 <style scoped lang="scss">
-.textEllipsis {
-  &-more {
+.hxvue-text-ellipsis {
+  &__more {
     padding: 0 2px;
   }
 }

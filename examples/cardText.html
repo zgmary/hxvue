@@ -30,11 +30,8 @@
     <h2>网站标签卡片</h2>
     <hr />
     <hxvue-cardtext :option="option"></hxvue-cardtext>
-<!--    <h2>相似网站卡片</h2>
-    <hxvue-card :option="option1"></hxvue-card>
     <hr />
-    <h2>固定大小图片卡片</h2>
-    <hxvue-card :option="option2"></hxvue-card>-->
+    <hxvue-cardtext :option="option1"></hxvue-cardtext>
 </div>
 
 </body>
@@ -43,7 +40,7 @@
     //开始生成测试数据
     const demoData = [];
     const base = parseInt((Math.random() * 60), 10) + 10;
-    const demoDataNum = 60;
+    const demoDataNum = 10;
     for (let i = 0; i < demoDataNum; i++) {
         let likeNum = Mock.mock('@integer(1, 100)');
         let viewNum = Mock.mock('@integer(1000, 2000)');
@@ -66,6 +63,28 @@
                     cardSpan: 8,
                     gutter: 10,
                     cardType: "similarityText",
+                    /*iconLove: "el-icon-phone",
+                    iconView: "el-icon-s-goods",*/
+                    data: demoData,
+                    gotoWebClick: function (item, index) {
+                        console.log(index);
+                        item.viewNum++;
+                    },
+                    authorClick: function (item, index) {
+                        this.$message.success("开始加载新数据");
+                        console.log(JSON.stringify(item));
+                        this.option.data = demoData.slice(demoDataNum/2);
+                    },
+                    iconLoveClick: function (item, index) {
+                        this.$message.success("点击了收藏键！");
+                        item.likeNum++;
+                        console.log(JSON.stringify(item));
+                    }
+                },
+                option1: {
+                    cardSpan: 4,
+                    gutter: 10,
+                    cardType: "cardText",
                     /*iconLove: "el-icon-phone",
                     iconView: "el-icon-s-goods",*/
                     data: demoData,

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Avatar 头像使用例子</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="../lib/hxvue.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="../lib/hxvue.umd.js"></script>
+  <style type="text/css">
+    body {
+      background-color: #e8eeec;
+      font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <div>
+        <hxvue-avatar :size="64" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar size="large" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar size="small" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+      </div>
+      <br />
+      <div>
+        <hxvue-avatar shape="square" :size="64" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar shape="square" size="large" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar shape="square" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar shape="square" size="small" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+      </div>
+      <br />
+      <div>
+        <hxvue-avatar icon="el-icon-circle-plus-outline"></hxvue-avatar>
+        <hxvue-avatar>U</hxvue-avatar>
+        <hxvue-avatar>USER</hxvue-avatar>
+        <hxvue-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></hxvue-avatar>
+        <hxvue-avatar style="color: #f56a00; background-color: #fde3cf">U</hxvue-avatar>
+        <hxvue-avatar style="background-color:#87d068" icon="el-icon-circle-plus-outline"></hxvue-avatar>
+      </div>
+      <br />
+      <div>
+        <hxvue-avatar shape="square" size="large" :style="{backgroundColor: color, verticalAlign: 'middle'}">
+          {{avatarValue}}</hxvue-avatar>
+        <el-button size="small" :style="{ marginLeft: 16, verticalAlign: 'middle' }" @click="changeValue">改变</el-button>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const UserList = ['U', 'Lucy', 'Tom', 'Edward'];
+  const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        avatarValue: UserList[0],
+        color: colorList[0],
+      }
+    },
+    methods: {
+      changeValue() {
+        const index = UserList.indexOf(this.avatarValue);
+        this.avatarValue = index < UserList.length - 1 ? UserList[index + 1] : UserList[0];
+        this.color = index < colorList.length - 1 ? colorList[index + 1] : colorList[0]
+      },
+    },
+  })
+</script>
+
+</html>
