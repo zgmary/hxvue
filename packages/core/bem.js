@@ -1,10 +1,11 @@
 /**
  * bemCss helper
- * bemCss() // 'button'
- * bemCss('text') // 'button__text'
- * bemCss({ disabled }) // 'button button--disabled'
- * bemCss('text', { disabled }) // 'button__text button__text--disabled'
- * bemCss(['disabled', 'primary']) // 'button button--disabled button--primary'
+ * bemCss()                                 // 'button'
+ * bemCss('text')                           // 'button__text'
+ * bemCss("text","disabled")                // 'button__text button__text--disabled'
+ * bemCss('text', ['disabled', 'primary'])  // 'button__text button--disabled button--primary'
+ * bemCss(['disabled'])                     // 'button button--disabled'
+ * bemCss(['disabled', 'primary'])          // 'button button--disabled button--primary'
  */
 
 const ELEMENT = "__";
