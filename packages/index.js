@@ -10,7 +10,7 @@ import Avatar from "./components/Avatar";
 const $HxVueVersion = "Ver 0.1.4";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
-
+import $HxVueImagePreview from "./plugin/imagePreview/";
 // 存储组件列表
 const components = [
   Login,
@@ -37,6 +37,7 @@ const install = vue => {
   Object.keys(prototypes).forEach(key => {
     vue.prototype[key] = prototypes[key];
   });
+  vue.prototype.$HxVueImagePreview = $HxVueImagePreview(vue);
 };
 
 // 判断是否是直接引入文件

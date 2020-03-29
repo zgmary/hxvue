@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>图片预览使用例子</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="../lib/hxvue.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="../lib/hxvue.umd.js"></script>
+  <style type="text/css">
+    body {
+      background-color: #e8eeec;
+      font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    }
+    .imagePreview img {
+      width: 60px;
+      cursor: pointer;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    .imagePreview img:hover {
+      box-shadow: 0 0 6px rgb(63, 63, 63);
+    }
+  </style>
+</head>
+
+<body>
+<noscript>
+  <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+    Please enable it to continue.</strong>
+</noscript>
+<div id="app">
+  <div class="imagePreview">
+    <el-button @click="openPreview(0)">打开图片预览</el-button>
+    <p>
+      <img v-for="(d, index) of datas" :src="d.thumbUrl" @click="openPreview(index)">
+    </p>
+  </div>
+</div>
+</body>
+<script>
+  //开始生成测试数据
+  const demoData = [];
+  const base = parseInt((Math.random() * 60), 10) + 10;
+  const demoDataNum = 60;
+  for (let i = 0; i < demoDataNum; i++) {
+    demoData.push({
+      thumbUrl: `https://picsum.photos/id/${base + i}/300/200`,
+      url: `https://picsum.photos/id/${base + i}/600/400`
+    })
+  }
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        datas: demoData
+      }
+    },
+    methods: {
+      openPreview(index = 0) {
+        this.$HxVueImagePreview(this.datas[index].url);
+      }
+    }
+  })
+</script>
+
+</html>

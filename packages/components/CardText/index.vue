@@ -57,9 +57,7 @@
             >
               <el-avatar :size="20" :src="item.authorUrl"></el-avatar>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div v-for="n in 3" :key="n"></div>
             <div
               class="card-menu-icon"
               @click="iconLoveClick ? iconLoveClick(item, index) : ''"
