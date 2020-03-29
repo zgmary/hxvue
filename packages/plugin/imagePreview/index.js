@@ -5,10 +5,11 @@ let instances = [];
 let seed = 1;
 const ImagePreview = function(Vue) {
   let MessageConstructor = Vue.extend(Main);
-  const obj = function(imageUrl) {
+  const obj = function(datas = [], index = 0) {
     let id = "imagePreview_" + seed++;
     let options = {
-      imageUrl: imageUrl
+      datas: datas,
+      index: index
     };
     let userOnClose = options.onClose;
     instance = new MessageConstructor({

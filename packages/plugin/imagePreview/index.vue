@@ -1,6 +1,7 @@
 <template>
   <div :class="bemCss()" v-show="isShowImage" @click="isShowImage = false">
     <div :class="bemCss('mask')"></div>
+    <i class="el-icon-d-arrow-left" @click.capture.stop="previousImage"></i>
     <div
       :class="bemCss('box')"
       :style="previewStyle"
@@ -9,13 +10,14 @@
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.6)"
     >
-      <img ref="img" hidden :src="imageUrl" />
+      <img ref="img" hidden :src="datas[index].url" />
       <el-image
-        :src="imageUrl"
+        :src="datas[index].url"
         v-show="!changeing"
         @load="initStyle"
       ></el-image>
     </div>
+    <i class="el-icon-d-arrow-right" @click.capture.stop="nextImage"></i>
   </div>
 </template>
 <script>
@@ -25,7 +27,8 @@ export default create({
   data() {
     return {
       isShowImage: true,
-      imageUrl: "",
+      datas: [],
+      index: 0,
       onClose: null,
       changeing: true,
       width: 200,
@@ -43,6 +46,9 @@ export default create({
   },
   mounted() {},
   computed: {
+    maxIndex: function() {
+      return this.datas.length - 1;
+    },
     previewStyle: function() {
       return {
         width: `${this.width}px`,
@@ -60,6 +66,18 @@ export default create({
       if (typeof this.onClose === "function") {
         this.onClose(this);
       }
+    },
+    previousImage() {
+      if (this.index > 0) {
+        this.changeing = true;
+        this.index--;
+      }
+    },
+    nextImage() {
+      if (this.index < this.maxIndex) {
+        this.changeing = true;
+        this.index++;
+      }
     }
   }
 });
@@ -74,17 +92,23 @@ export default create({
 }
 .hxvue-image-preview {
   @include display;
+  display: flex;
+  align-items: center;
   transition: all 0.5s;
   z-index: 9999;
+  i {
+    font-size: 96px;
+  }
+  i:hover {
+    color: white;
+  }
   &__mask {
     @include display(absolute);
     background: rgba(0, 0, 0, 0.2);
     z-index: -1;
   }
   &__box {
-    padding: 5px;
-    margin: 50px auto;
-    border-radius: 4px;
+    margin: 0 auto;
     background-color: #fff;
   }
 }
