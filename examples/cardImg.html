@@ -117,7 +117,7 @@
         methods: {
             imageClick: function (item, index) {
                 this.$message.success("图片点击后外部插件放大查看");
-                this.$HxVueImagePreview(item.imgUrl);
+                this.$HxVueImagePreview(demoData,index);
                 console.log(JSON.stringify(item));
             },
             changeOption() {

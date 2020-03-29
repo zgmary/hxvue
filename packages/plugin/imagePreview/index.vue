@@ -10,9 +10,9 @@
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.6)"
     >
-      <img ref="img" hidden :src="datas[index].url" />
+      <img ref="img" hidden :src="datas[index].imgUrl" />
       <el-image
-        :src="datas[index].url"
+        :src="datas[index].imgUrl"
         v-show="!changeing"
         @load="initStyle"
       ></el-image>
@@ -104,7 +104,7 @@ export default create({
   }
   &__mask {
     @include display(absolute);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
   }
   &__box {
