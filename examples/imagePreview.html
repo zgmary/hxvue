@@ -36,7 +36,7 @@
   <div class="imagePreview">
     <el-button @click="openPreview(0)">打开图片预览</el-button>
     <p>
-      <img v-for="(d, index) of datas" :src="d.thumbUrl" @click="openPreview(index)">
+      <img v-for="(d, index) of datas" :src="d.thumbUrl" style="width: 200px;height: 200px" @click="openPreview(index)">
     </p>
   </div>
 </div>

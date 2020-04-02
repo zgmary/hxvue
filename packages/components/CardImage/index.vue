@@ -16,7 +16,7 @@
               width="100%"
               :object-fit="fitModel"
               alt="图像获取失败！"
-              @click="imageClick(item, index)"
+              @dblclick="imageClick(item, index)"
             />
           </div>
           <div class="card-menu">

@@ -1,7 +1,11 @@
 <template>
   <div :class="bemCss()" v-show="isShowImage" @click="isShowImage = false">
     <div :class="bemCss('mask')"></div>
-    <i class="el-icon-d-arrow-left" @click.capture.stop="previousImage"></i>
+    <i
+      class="el-icon-d-arrow-left"
+      v-show="isShowLeft"
+      @click.capture.stop="previousImage"
+    ></i>
     <div
       :class="bemCss('box')"
       :style="previewStyle"
@@ -17,7 +21,11 @@
         @load="initStyle"
       ></el-image>
     </div>
-    <i class="el-icon-d-arrow-right" @click.capture.stop="nextImage"></i>
+    <i
+      class="el-icon-d-arrow-right"
+      v-show="isShowRight"
+      @click.capture.stop="nextImage"
+    ></i>
   </div>
 </template>
 <script>
@@ -32,7 +40,9 @@ export default create({
       onClose: null,
       changeing: true,
       width: 200,
-      height: 200
+      height: 200,
+      isShowRight: true,
+      isShowLeft: true
     };
   },
   watch: {
@@ -42,9 +52,16 @@ export default create({
         this.width = 200;
         this.height = 200;
       }
+    },
+    index: function() {
+      this.isShowLeft = 0 !== this.index;
+      this.isShowRight = this.maxIndex !== this.index;
     }
   },
-  mounted() {},
+  mounted() {
+    this.isShowLeft = 0 !== this.index;
+    this.isShowRight = this.datas.length - 1 !== this.index;
+  },
   computed: {
     maxIndex: function() {
       return this.datas.length - 1;
@@ -65,6 +82,8 @@ export default create({
     close() {
       if (typeof this.onClose === "function") {
         this.onClose(this);
+        this.$destroy(); //自我摧毁
+        this.$el.parentNode.removeChild(this.$el); //移除dom节点
       }
     },
     previousImage() {
@@ -94,8 +113,7 @@ export default create({
   @include display;
   display: flex;
   align-items: center;
-  transition: all 0.5s;
-  z-index: 9999;
+  z-index: 1000;
   i {
     font-size: 96px;
   }

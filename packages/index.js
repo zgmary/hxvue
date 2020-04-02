@@ -5,6 +5,7 @@ import CardFlag from "./components/CardFlag";
 import TextEllipsis from "./components/TextEllipsis";
 import SvgIcon from "./components/SvgIcon";
 import Avatar from "./components/Avatar";
+import SideDrawer from "./components/SideDrawer";
 
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
@@ -19,7 +20,8 @@ const components = [
   CardFlag,
   TextEllipsis,
   SvgIcon,
-  Avatar
+  Avatar,
+  SideDrawer
 ];
 
 // 定义全局的API
