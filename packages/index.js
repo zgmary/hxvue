@@ -6,7 +6,7 @@ import TextEllipsis from "./components/TextEllipsis";
 import SvgIcon from "./components/SvgIcon";
 import Avatar from "./components/Avatar";
 import SideDrawer from "./components/SideDrawer";
-
+import Tabs from "./components/Tabs";
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
 import $HxVueLog from "./plugin/logs/";
@@ -21,7 +21,8 @@ const components = [
   TextEllipsis,
   SvgIcon,
   Avatar,
-  SideDrawer
+  SideDrawer,
+  Tabs
 ];
 
 // 定义全局的API
