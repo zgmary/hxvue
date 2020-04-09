@@ -7,11 +7,14 @@ import SvgIcon from "./components/SvgIcon";
 import Avatar from "./components/Avatar";
 import SideDrawer from "./components/SideDrawer";
 import Tabs from "./components/Tabs";
+import Video from "./components/Video";
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 import $HxVueImagePreview from "./plugin/imagePreview/";
+import $HxVueVideoPlay from "video.js";
+
 // 存储组件列表
 const components = [
   Login,
@@ -22,14 +25,16 @@ const components = [
   SvgIcon,
   Avatar,
   SideDrawer,
-  Tabs
+  Tabs,
+  Video
 ];
 
 // 定义全局的API
 let prototypes = {
   $HxVueVersion,
   $HxVueLog,
-  $HxVueWatermark
+  $HxVueWatermark,
+  $HxVueVideoPlay
 };
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册

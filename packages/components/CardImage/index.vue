@@ -15,6 +15,7 @@
               :height="setPx(imgHeight)"
               width="100%"
               :object-fit="fitModel"
+              loading="lazy"
               alt="图像获取失败！"
               @dblclick="imageClick(item, index)"
             />
