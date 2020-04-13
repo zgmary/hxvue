@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <el-row :span="24" :gutter="gutter">
+    <el-row :gutter="gutter">
       <el-col
         :md="cardSpan"
         :xs="12"
@@ -55,11 +55,6 @@
               ></i>
             </div>
           </div>
-          <el-image-viewer
-            v-if="showViewer"
-            :on-close="closeViewer"
-            :url-list="[srcUrl]"
-          />
         </div>
       </el-col>
     </el-row>
@@ -68,10 +63,8 @@
 
 <script>
 import create from "../../core/create";
-import ElImageViewer from "element-ui/packages/image/src/image-viewer";
 export default create({
   name: "cardimg",
-  components: { ElImageViewer },
   props: {
     option: {
       type: Object,
@@ -90,9 +83,7 @@ export default create({
       authorClick: this.option.authorClick,
       iconLoveClick: this.option.iconLoveClick,
       downLoadClick: this.option.downLoadClick,
-      searchClick: this.option.searchClick,
-      showViewer: false,
-      srcUrl: ""
+      searchClick: this.option.searchClick
     };
   },
   computed: {
@@ -106,13 +97,9 @@ export default create({
   methods: {
     imageClick(item, index) {
       if (this.preview) {
-        this.srcUrl = item.imgUrl;
-        this.showViewer = true;
+        this.$HxVueImagePreview(this.cardData, index);
       }
       this.$emit("image-click", item, index);
-    },
-    closeViewer() {
-      this.showViewer = false;
     }
   }
 });

@@ -2,7 +2,7 @@
   <div :class="bemCss()" v-show="isShowImage" @click="isShowImage = false">
     <div :class="bemCss('mask')"></div>
     <i
-      class="el-icon-d-arrow-left"
+      class="el-icon-arrow-left"
       v-show="isShowLeft"
       @click.capture.stop="previousImage"
     ></i>
@@ -22,7 +22,7 @@
       ></el-image>
     </div>
     <i
-      class="el-icon-d-arrow-right"
+      class="el-icon-arrow-right"
       v-show="isShowRight"
       @click.capture.stop="nextImage"
     ></i>
@@ -115,10 +115,13 @@ export default create({
   align-items: center;
   z-index: 1000;
   i {
-    font-size: 96px;
+    font-size: 48px;
+    border-radius: 48px;
+    color: white;
+    background-color: #d3d5d6;
   }
   i:hover {
-    color: white;
+    color: red;
   }
   &__mask {
     @include display(absolute);
