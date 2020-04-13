@@ -8,6 +8,8 @@ import Avatar from "./components/Avatar";
 import SideDrawer from "./components/SideDrawer";
 import Tabs from "./components/Tabs";
 import Video from "./components/Video";
+import LoginAndRegister from "./components/LoginAndRegister";
+
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
 import $HxVueLog from "./plugin/logs/";
@@ -26,7 +28,8 @@ const components = [
   Avatar,
   SideDrawer,
   Tabs,
-  Video
+  Video,
+  LoginAndRegister
 ];
 
 // 定义全局的API

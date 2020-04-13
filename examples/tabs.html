@@ -34,10 +34,10 @@
         标签导航条动态切换数据
       </el-button>
       <hr />
-      <hxvue-tabs :option="option" @tab-click="tabClicked" v-slot="slotProps">
-        <hxvue-side-drawer :option="optionDrawer" @open="open"></hxvue-side-drawer>
-        <component :is="slotProps.item.tabName"></component>
+      <hxvue-tabs :option="option" @tab-click="tabClicked" @switch-click="switchClick" @icon-click="iconClick" v-slot="slotProps">
+        <component :is="slotProps.componentName"></component>
       </hxvue-tabs>
+      <hxvue-side-drawer :option="optionDrawer" @open="open"></hxvue-side-drawer>
     </div>
   </body>
 
@@ -65,7 +65,7 @@
     const demoDataNum = 5;
     const tabName = ["tabOne", "tabTwo", "tabThree", "tabFour", "tabFive"];
     const iconClass = ["el-icon-user", "el-icon-star-off", "el-icon-help", "el-icon-upload", "el-icon-bell"];
-    const labelName = ["图片平铺例子","相似网站标签例子","导航标签例子(样式一)","导航标签例子(样式二)","图片瀑布流例子"];
+    const labelName = ["图片平铺","相似网站","标签(样式一)","标签(样式二)","图片瀑布流"];
     for (let i = 0; i < demoDataNum; i++) {
       demoData.push({
         labelName: labelName[i],
@@ -213,11 +213,27 @@
           },
           template: '<hxvue-cardflag :option="option"></hxvue-cardflag>'
         },
+        'tabFive': {
+          template: '<span>"第五个tab"</span>'
+        }
       },
       data() {
         return {
           option: {
-            tabsData: demoData
+            tabsData: demoData,
+            controlData: {
+              type: "switch",
+              switchControl: [
+                { label: "国内", value: true },
+                { label: "国外", value: true },
+                { label: "免费", value: true },
+                { label: "收费", value: true }
+              ],
+              iconControl: [
+                { icon: "el-icon-menu", name: "平铺图" },
+                { icon: "el-icon-s-grid", name: "非平铺图" }
+              ]
+            }
           },
           optionDrawer: {
             drawerWidth: "420px",
@@ -237,6 +253,22 @@
         },
         tabClicked(activeName) {
           this.$message.success(activeName);
+        },
+        open(){
+          this.$message.success("OPEN SUCCESS!");
+        },
+        switchClick(val) {
+          if (val == true) {
+            this.$message.success("Switch Open!");
+          } else {
+            this.$message.success("Switch Close!");
+          }
+          for (const switchInfo of this.option.controlData.switchControl) {
+            console.log(switchInfo.label + switchInfo.value);
+          }
+        },
+        iconClick(name) {
+          this.$message.success(name);
         }
       }
     });
