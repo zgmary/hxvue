@@ -113,7 +113,7 @@ export default create({
   @include display;
   display: flex;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
   i {
     font-size: 48px;
     border-radius: 48px;
@@ -122,6 +122,13 @@ export default create({
   }
   i:hover {
     color: red;
+    background-color: white;
+  }
+  .el-icon-arrow-left {
+    margin-left: 20px;
+  }
+  .el-icon-arrow-right {
+    margin-right: 20px;
   }
   &__mask {
     @include display(absolute);

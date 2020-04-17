@@ -1,9 +1,10 @@
 <template>
-  <el-row :span="24" :gutter="gutter">
+  <el-row :gutter="gutter">
     <el-col
-      :md="cardSpan"
+      :xl="cardSpan"
+      :lg="6"
+      :md="8"
       :xs="12"
-      :sm="8"
       v-for="(item, index) in cardData"
       :key="index"
     >
@@ -109,7 +110,7 @@ $time: 0.5s;
   bottom: 0;
   height: 100px;
   margin-bottom: 16px;
-  font-size: 10px;
+  font-size: 13px;
   background-color: #fff;
   //过渡效果
   transition: bottom $time;
@@ -160,7 +161,7 @@ $time: 0.5s;
       @include text-display;
       &-title {
         color: rgba(0, 0, 0, 0.85);
-        font-size: 14px;
+        font-size: 16px;
       }
       &-tag {
         margin-left: 10px;

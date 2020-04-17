@@ -143,6 +143,7 @@ $theme-color: #ff0000;
   &__icon {
     margin-right: 20px;
     font-size: 24px;
+    color: rgb(0, 0, 0, 0.6);
   }
 }
 </style>

@@ -2,9 +2,10 @@
   <div class="card">
     <el-row :gutter="gutter">
       <el-col
-        :md="cardSpan"
+        :xl="cardSpan"
+        :lg="6"
+        :md="8"
         :xs="12"
-        :sm="8"
         v-for="(item, index) in this.cardData"
         :key="index"
       >

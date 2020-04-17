@@ -21,16 +21,18 @@
         <div :class="bemCss('title')">{{ option.title }}</div>
 
         <el-form :class="bemCss('form')" :model="form" ref="form" status-icon>
-          <el-form-item :rules="username.rules" prop="username">
+          <el-form-item :rules="userName.rules" prop="userName">
             <el-tooltip
-              :content="username.tip || '请输入用户名'"
+              :content="userName.tip || '请输入用户名'"
+              :disabled="this.userName.tip === undefined"
               placement="top-start"
             >
               <!--form.username中的username只是键名-->
               <el-input
-                v-model="form.username"
-                :prefix-icon="username.icon || 'el-icon-user'"
-                :placeholder="username.placeholder || '请输入用户名'"
+                v-model="form.userName"
+                :prefix-icon="userName.icon || 'el-icon-user'"
+                :placeholder="userName.placeholder || '请输入用户名'"
+                :autocomplete="this.userName.autocomplete"
               >
               </el-input>
             </el-tooltip>
@@ -38,6 +40,7 @@
           <el-form-item :rules="password.rules" prop="password">
             <el-tooltip
               :content="password.tip || '请输入密码'"
+              :disabled="this.password.tip === undefined"
               placement="top-start"
             >
               <el-input
@@ -53,6 +56,7 @@
           <el-form-item :rules="code.rules" prop="code">
             <el-tooltip
               :content="code.tip || '请输入验证码'"
+              :disabled="this.code.tip === undefined"
               placement="top-start"
             >
               <el-input
@@ -153,8 +157,8 @@ export default create({
     isRegister() {
       return this.type === "register";
     },
-    username() {
-      return this.data.username || {};
+    userName() {
+      return this.data.userName || {};
     },
     password() {
       return this.data.password || {};
@@ -186,7 +190,7 @@ export default create({
         this.text = TIP_TEXT.replace("{{time}}", nowTime);
         this.timer = setInterval(() => {
           nowTime--;
-          if (nowTime == 0) {
+          if (nowTime <= 0) {
             this.text = INIT_TEXT;
             clearInterval(this.timer);
           } else {
@@ -216,7 +220,7 @@ export default create({
       });
     },
     setTime() {
-      setInterval(() => {
+      const dateTimer = setInterval(() => {
         let date = new Date();
         this.time = `${this.processTime(date.getFullYear())}-${this.processTime(
           date.getMonth() + 1
@@ -225,6 +229,9 @@ export default create({
           date.getMinutes()
         )}:${this.processTime(date.getSeconds())}`;
       }, 1000);
+      this.$once("hook:beforeDestroy", () => {
+        clearInterval(dateTimer);
+      });
     },
     //小于10补0
     processTime(val) {
@@ -284,15 +291,15 @@ export default create({
     background-color: rgba(0, 123, 255, 153);
   }
   &__time {
-    @include positionInfo(absolute, 5%, 5%, 0%, 0%, false);
+    @include positionInfo(absolute, 10%, 10%, 0%, 0%, false);
     color: floralwhite;
     font-size: 18px;
   }
   &__img {
-    @include positionInfo(absolute, 25%, 25%, 50%, 30%);
+    @include positionInfo(absolute, 10%, 25%, 80%, 50%);
   }
   &__info {
-    @include positionInfo(absolute, 0%, 60%, 100%, 20px);
+    @include positionInfo(absolute, 0%, 80%, 100%, 20px);
     text-align: center;
     font-size: 20px;
     color: whitesmoke;

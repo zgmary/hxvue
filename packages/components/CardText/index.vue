@@ -1,10 +1,11 @@
 <template>
   <div class="card">
-    <el-row :span="24" :gutter="gutter">
+    <el-row :gutter="gutter">
       <el-col
-        :md="cardSpan"
+        :xl="cardSpan"
+        :lg="6"
+        :md="8"
         :xs="12"
-        :sm="8"
         v-for="(item, index) in this.cardData"
         :key="index"
       >
@@ -135,7 +136,7 @@ export default create({
   &-item {
     margin-bottom: 16px;
     height: 116px;
-    font-size: 10px;
+    font-size: 13px;
     line-height: 20px;
     background-color: #fff;
     box-sizing: border-box;
@@ -157,7 +158,7 @@ export default create({
       flex: 1;
       &-title {
         @include text-display;
-        font-size: 14px;
+        font-size: 16px;
         color: rgba(0, 0, 0, 0.85);
         margin-bottom: 6px;
       }

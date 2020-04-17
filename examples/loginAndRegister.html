@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="../lib/hxvue.css">
 		<!-- 引入组件库 -->
 		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-		<script src="../lib/hxvue.umd.js"></script> 
+		<script src="../lib/hxvue.umd.js"></script>
 		<script src="../node_modules/mockjs/dist/mock.js"></script>
 		<style type="text/css">
 			body {
@@ -59,13 +59,14 @@
 						type: "login",
 						title: "登录",
 			      logoUrl: `https://picsum.photos/id/${base}/300/200`,
-			      logoInfo: title,
+			      logoInfo: "浙江省2011协同创新中心",
 			      codeSrc: "",
 			      data: {
-			        username: {
+			      	userName: {
 			          tip: "请输入您的手机号",
 			          icon: "el-icon-user",
 			          placeholder: "请输入您的手机号",
+					  autocomplete: 'on',
 			          rules: [
 			            { required: true, message: "请输入用户名", trigger: "blur" },
 			            { pattern: /^1[0-9]{10}$/, message: "请输入正确的手机号", trigger: "blur" }
@@ -99,7 +100,7 @@
 			      logoInfo: title,
 			      href: "https://www.baidu.com/",
 			      data: {
-			        username: {
+			        userName: {
 			          tip: "请输入您的手机号",
 			          icon: "el-icon-user",
 			          placeholder: "请输入您的手机号",

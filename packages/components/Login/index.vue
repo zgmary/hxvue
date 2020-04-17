@@ -173,7 +173,7 @@ export default create({
         this.text = TIP_TEXT.replace("{{time}}", this.nowTime);
         this.check = setInterval(() => {
           this.nowTime--;
-          if (this.nowTime === 0) {
+          if (this.nowTime <= 0) {
             this.text = INIT_TEXT;
             clearInterval(this.check);
           } else {
