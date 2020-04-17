@@ -9,6 +9,7 @@ import SideDrawer from "./components/SideDrawer";
 import Tabs from "./components/Tabs";
 import Video from "./components/Video";
 import LoginAndRegister from "./components/LoginAndRegister";
+import Search from "./components/Search";
 
 // 组件版本号
 const $HxVueVersion = "Ver 0.1.4";
@@ -29,7 +30,8 @@ const components = [
   SideDrawer,
   Tabs,
   Video,
-  LoginAndRegister
+  LoginAndRegister,
+  Search
 ];
 
 // 定义全局的API

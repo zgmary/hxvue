@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>搜索框</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"/>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1645558_jbkkanthj6r.css"/>
+    <link rel="stylesheet" href="../lib/hxvue.css" />
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <style type="text/css">
+      body {
+        background-color: #e8eeec;
+        font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <div id="app">
+      <hxvue-search :option="option"></hxvue-search>
+    </div>
+  </body>
+
+  <script>
+    //开始生成测试数据
+    const demoData = [];
+    const demoDataNum = 5;
+    for (let i = 1; i < demoDataNum+1; i++) {
+      demoData.push({
+        value: "选项" + i.toString(),
+        label: Mock.mock("@cword(3, 5)"),
+      });
+    }
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          option: {
+            selectValue: "选项1",
+            similarSearchVisible: true,
+			optionInfo: demoData,
+            searchClick: function (val,keyInfo) {
+              this.$message.success("搜索:" + val + "," + keyInfo);
+            },
+            similarSearchClick: function (val,keyInfo) {
+              this.$message.success("查找相似图片:" + val + "," + keyInfo);
+            },
+          },
+        };
+      },
+    });
+  </script>
+</html>
