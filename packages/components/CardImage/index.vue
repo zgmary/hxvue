@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :style="{ width: setPx(pageWidth) }">
     <el-row :gutter="gutter">
       <el-col
         :xl="cardSpan"
@@ -88,6 +88,9 @@ export default create({
     };
   },
   computed: {
+    pageWidth() {
+      return this.option.pageWidth || "80%";
+    },
     preview: function() {
       return this.option.preview || false;
     },
@@ -108,6 +111,7 @@ export default create({
 
 <style scoped lang="scss">
 .card {
+  margin: 0 auto;
   &-item {
     >>> .el-image-viewer__mask {
       background: rgba(0, 0, 0, 0.05);

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :style="{ width: setPx(pageWidth) }">
     <el-row :gutter="gutter">
       <el-col
         :xl="cardSpan"
@@ -99,6 +99,9 @@ export default create({
     };
   },
   computed: {
+    pageWidth() {
+      return this.option.pageWidth || "80%";
+    },
     cardData: function() {
       return this.option.data || [];
     },
@@ -130,6 +133,7 @@ export default create({
   flex-shrink: 0;
 }
 .card {
+  margin: 0 auto;
   >>> .el-card__body {
     padding: 0;
   }

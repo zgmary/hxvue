@@ -1,5 +1,8 @@
 <template>
-  <el-row :gutter="gutter">
+  <el-row
+    :gutter="gutter"
+    :style="{ margin: '0 auto', width: setPx(pageWidth) }"
+  >
     <el-col
       :xl="cardSpan"
       :lg="6"
@@ -78,6 +81,9 @@ export default create({
     }
   },
   computed: {
+    pageWidth() {
+      return this.option.pageWidth || "80%";
+    },
     cardSpan() {
       return this.option.cardSpan || 4;
     },
