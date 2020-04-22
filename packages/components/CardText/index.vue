@@ -2,6 +2,7 @@
   <div class="card" :style="{ width: setPx(pageWidth) }">
     <el-row :gutter="gutter">
       <el-col
+        :class="computedClass"
         :xl="cardSpan"
         :lg="6"
         :md="8"
@@ -99,6 +100,9 @@ export default create({
     };
   },
   computed: {
+    computedClass() {
+      return { "el-col-4-8": 5 === this.option.cardSpan };
+    },
     pageWidth() {
       return this.option.pageWidth || "80%";
     },
@@ -131,6 +135,9 @@ export default create({
   border-radius: $logoRadius;
   margin-right: 12px;
   flex-shrink: 0;
+}
+.el-col-4-8 {
+  width: 20%;
 }
 .card {
   margin: 0 auto;

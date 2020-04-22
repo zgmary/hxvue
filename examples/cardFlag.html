@@ -11,6 +11,8 @@
 		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 		<script src="../lib/hxvue.umd.js"></script>
 		<script src="../node_modules/mockjs/dist/mock.js"></script>
+		<script src="https://unpkg.com/vue-infinite-scroll"></script>
+
 		<style type="text/css">
 			body {
 				background-color: #e8eeec;
@@ -26,30 +28,12 @@
 				Please enable it to continue.</strong>
 		</noscript>
 
-		<div id="app">
+		<div id="app" v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
 			<hxvue-cardflag :option="option"></hxvue-cardflag>
 		</div>
 	</body>
 
 	<script>
-		//开始生成测试数据
-		const demoData = [];
-		const base = parseInt((Math.random() * 60), 10) + 10;
-		const demoDataNum = 60;
-		for (let i = 0; i < demoDataNum; i++) {
-			let likeNum = Mock.mock('@integer(1, 100)');
-			let viewNum = Mock.mock('@integer(1000, 2000)');
-			demoData.push({
-				href: "http://www.163.com",
-				target: '_blank',
-				logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
-				title: Mock.mock('@ctitle(3, 8)'),
-				content: Mock.mock('@cparagraph'),
-				tag: ["CN", "收费"],
-				likeNum: `${likeNum}`,
-				viewNum: `${viewNum}`
-			})
-		}
 		new Vue({
 			el: '#app',
 			data() {
@@ -57,7 +41,6 @@
 			    option: {
 					pageWidth: "70%",
 			    	cardSpan: 6,
-			      	gutter: 6,
 				  	gotoWebClick: function(item, index) {
 			        	console.log(index);
 			        	item.viewNum++;
@@ -66,10 +49,35 @@
 			        	console.log(index);
 			        	item.likeNum++;
 			      	},
-			      	data: demoData
+					data:[]
 			    }
 			  }
+			},
+			methods: {
+				loadNextData() {
+					this.$message.success("开始加载新的测试数据");
+					this.busy = true;
+					loadData(this.option.data);
+					this.busy = false;
+				}
 			}
 		})
+		function loadData(demoData,demoDataNum=60) {
+			const base = parseInt((Math.random() * 60), 10) + 10;
+			for (let i = 0; i < demoDataNum; i++) {
+				let likeNum = Mock.mock('@integer(1, 100)');
+				let viewNum = Mock.mock('@integer(1000, 2000)');
+				demoData.push({
+					href: "http://www.163.com",
+					target: '_blank',
+					logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
+					title: Mock.mock('@ctitle(3, 8)'),
+					content: Mock.mock('@cparagraph'),
+					tag: ["CN", "收费"],
+					likeNum: `${likeNum}`,
+					viewNum: `${viewNum}`
+				})
+			}
+		}
 	</script>
 </html>

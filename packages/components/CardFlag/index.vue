@@ -4,6 +4,7 @@
     :style="{ margin: '0 auto', width: setPx(pageWidth) }"
   >
     <el-col
+      :class="computedClass"
       :xl="cardSpan"
       :lg="6"
       :md="8"
@@ -81,6 +82,9 @@ export default create({
     }
   },
   computed: {
+    computedClass() {
+      return { "el-col-4-8": 5 === this.option.cardSpan };
+    },
     pageWidth() {
       return this.option.pageWidth || "80%";
     },
@@ -106,6 +110,9 @@ $time: 0.5s;
   white-space: nowrap;
   //设置超出内容为省略号
   text-overflow: ellipsis;
+}
+.el-col-4-8 {
+  width: 20%;
 }
 .card {
   border: 1px solid darkgray;
