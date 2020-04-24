@@ -4,17 +4,16 @@
     <meta charset="utf-8">
     <title>图片卡片例子</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../lib/hxvue.css">
-<!--    <link rel="stylesheet" href="https://unpkg.com/viewerjs/dist/viewer.css">-->
+
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
     <script src="../node_modules/mockjs/dist/mock.js"></script>
-<!--    <script src="https://unpkg.com/viewerjs/dist/viewer.js"></script>
-    <script src="https://unpkg.com/v-viewer/dist/v-viewer.js"></script>-->
+    <script src="https://unpkg.com/vue-infinite-scroll"></script>
+
     <style type="text/css">
         body {
             overflow: auto !important;
@@ -31,103 +30,72 @@
         Please enable it to continue.</strong>
 </noscript>
 
-<div id="app">
-    <el-button type="primary" @click="changeOption">
-        图片标签卡片动态切换数据
-    </el-button>
-    <h2>1、组件内部看大图</h2>
-    <hr />
-    <hxvue-cardimg :option="option1"></hxvue-cardimg>
-    <h2>2、组件外部看大图</h2>
-    <hr />
-    <hxvue-cardimg :option="option2" @image-click="imageClick"></hxvue-cardimg>
+<div id="app" v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
+    <span>结合无限加载模式的平铺图片标签卡片演示</span>
+    <HR color=#987cb9 SIZE=3 />
+    <el-backtop :bottom="100"></el-backtop>
+    <hxvue-cardimg :option="option" @image-click="imageClick"></hxvue-cardimg>
 </div>
 
 </body>
 
 <script>
-    //开始生成测试数据
-    const demoData = [];
-    const base = parseInt((Math.random() * 60), 10) + 10;
-    const demoDataNum = 60;
-    for (let i = 0; i < demoDataNum; i++) {
-        let likeNum = Mock.mock('@integer(1000, 2000)');
-        let downLoadNum = Mock.mock('@integer(60, 100)');
-        demoData.push({
-            thumbUrl: `https://picsum.photos/id/${base + i}/300/200`,
-            imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
-            authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-            likeNum: `${likeNum}`,
-            downLoadNum: `${downLoadNum}`
-        })
-    }
     new Vue({
         el: '#app',
         data() {
-            return {
-                option1: {
-                    cardSpan: 4,
-                    imgHeight: 200,
-                    fitModel: "fill",
-                    preview: true,
-                    data: demoData,
-                    authorClick: function (item, index) {
-                        this.$message.success("开始加载同一用户上传的图片数据:" + index );
-                        console.log(JSON.stringify(item));
-                        this.option.data = demoData.slice(demoDataNum/2);
-                    },
-                    iconLoveClick: function (item, index) {
-                        item.likeNum++;
-                        console.log(JSON.stringify(item));
-                    },
-                    downLoadClick: function (item, index) {
-                        item.downLoadNum++;
-                        console.log(JSON.stringify(item));
-                    },
-                    searchClick: function (item, index) {
-                        this.$message.success("开始搜索同类相似图片:" + index );
-                        console.log(JSON.stringify(item));
-                    }
-                },
-                option2: {
-                    pageWidth: "70%",
-                    cardSpan: 4,
-                    imgHeight: 200,
-                    fitModel: "fill",
-                    preview: false,
-                    data: demoData,
-                    authorClick: function (item, index) {
-                        this.$message.success("开始加载同一用户上传的图片数据:" + index );
-                        console.log(JSON.stringify(item));
-                        this.option.data = demoData.slice(demoDataNum/2);
-                    },
-                    iconLoveClick: function (item, index) {
-                        item.likeNum++;
-                        console.log(JSON.stringify(item));
-                    },
-                    downLoadClick: function (item, index) {
-                        item.downLoadNum++;
-                        console.log(JSON.stringify(item));
-                    },
-                    searchClick: function (item, index) {
-                        this.$message.success("开始搜索同类相似图片:" + index );
-                        console.log(JSON.stringify(item));
-                    }
-                }
-            }
+          return {
+            busy: false,
+            option: {
+              cardSpan: 5,
+              preview: true,
+              data: [],
+              authorClick: function(item, index) {
+                this.$message.success("开始加载同一用户上传的图片数据:" + index);
+                console.log(JSON.stringify(item));
+              },
+              iconLoveClick: function(item, index) {
+                item.likeNum++;
+                console.log(index, JSON.stringify(item));
+              },
+              downLoadClick: function(item, index) {
+                item.downLoadNum++;
+                console.log(index, JSON.stringify(item));
+              },
+              searchClick: function(item, index) {
+                this.$message.success("开始搜索同类相似图片:" + index);
+                console.log(index, JSON.stringify(item));
+              }
+            },
+          };
         },
         methods: {
-            imageClick: function (item, index) {
-                this.$message.success("图片点击后外部插件放大查看");
-                this.$HxVueImagePreview(demoData,index);
-                console.log(JSON.stringify(item));
-            },
-            changeOption() {
-                this.$message.success("开始加载据:" );
-                this.option.data = demoData;
+          imageClick: function(item, index) {
+            this.$message.success("图片点击后内部插件放大查看");
+            console.log(index, JSON.stringify(item));
+          },
+          loadNextData() {
+              this.busy = true;
+              this.$message.success("开始加载新的测试数据!");
+              loadData(this.option.data);
+              this.busy = false;
             }
         }
     })
+    function loadData(demoData,demoDataNum=60) {
+        const base = parseInt((Math.random() * 60), 10) + 10;
+        for (let i = 0; i < demoDataNum; i++) {
+            let likeNum = Mock.mock("@integer(1000, 2000)");
+            let downLoadNum = Mock.mock("@integer(60, 100)");
+            let imgHeight = Math.floor(Math.random() * 200 + 150);
+            demoData.push({
+                thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
+                imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
+                authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
+                likeNum: `${likeNum}`,
+                downLoadNum: `${downLoadNum}`
+            });
+        }
+    }
 </script>
 
 </html>

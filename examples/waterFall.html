@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>图片卡片例子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <script src="https://unpkg.com/vue-infinite-scroll"></script>
+
+    <style type="text/css">
+        body {
+            overflow: auto !important;
+            background-color: #e8eeec;
+            font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        }
+    </style>
+
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+
+<div id="app" v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
+    <span>结合无限加载模式的瀑布流图片标签卡片演示</span>
+    <el-button type="primay" @click="reLoadData">重新加载数据</el-button>
+    <HR color=#987cb9 SIZE=3 />
+    <el-backtop :bottom="100"></el-backtop>
+    <hxvue-waterfall :option="option" :imgs-arr="data" @image-click="imageClick"></hxvue-waterfall>
+</div>
+
+</body>
+
+<script>
+    let newData = [];
+    loadData(newData);
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                busy: false,
+                data: newData,
+                option: {
+                    gutter: 10,
+                    // imgWidth: 250,
+                    pageWidth: "90%",
+                    preview: true,
+                    isLoaded: true,
+                    authorClick: function(item, index) {
+                        this.$message.success("开始加载同一用户上传的图片数据:" + index);
+                        console.log(JSON.stringify(item));
+                    },
+                    iconLoveClick: function(item, index) {
+                        item.likeNum++;
+                        console.log(index, JSON.stringify(item));
+                    },
+                    downLoadClick: function(item, index) {
+                        item.downLoadNum++;
+                        console.log(index, JSON.stringify(item));
+                    },
+                    searchClick: function(item, index) {
+                        this.$message.success("开始搜索同类相似图片:" + index);
+                        console.log(index, JSON.stringify(item));
+                    },
+                    getLoadedImageNum: function(imageNum) {
+                        this.$message.success("已经加载图片数:" + imageNum);
+                        console.log("已经加载图片数:" + imageNum);
+                    },
+                    getLoadStatus(loadStatus) {
+                        this.option.isLoaded = loadStatus;
+                    },
+                },
+            };
+        },
+        methods: {
+            imageClick: function(item, index) {
+                this.$message.success("图片点击后内部插件放大查看");
+                console.log(index, JSON.stringify(item));
+                console.log("this.option.isLoaded=" + this.option.isLoaded);
+            },
+            loadNextData() {
+                this.busy = true;
+                if(this.option.isLoaded) {
+                    loadData(this.data,20);
+                    this.$message.success("新数据加载中...!");
+                }
+                this.busy = false;
+            },
+            reLoadData() {
+                let newData = [];
+                loadData(newData);
+                this.data = newData;
+            }
+        }
+    })
+    function loadData(demoData,demoDataNum=30) {
+        const base = parseInt((Math.random() * 60), 10) + 10;
+        for (let i = 0; i < demoDataNum; i++) {
+            let likeNum = Mock.mock("@integer(1000, 2000)");
+            let downLoadNum = Mock.mock("@integer(60, 100)");
+            let imgHeight = Math.floor(Math.random() * 200 + 150);
+            demoData.push({
+                thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
+                imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
+                authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
+                likeNum: `${likeNum}`,
+                downLoadNum: `${downLoadNum}`
+            });
+        }
+    }
+</script>
+
+</html>

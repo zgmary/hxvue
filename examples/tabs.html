@@ -18,8 +18,10 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
     <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <script src="https://unpkg.com/vue-infinite-scroll"></script>
     <style type="text/css">
       body {
+        overflow: auto !important;
         background-color: #e8eeec;
         font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
       }
@@ -220,7 +222,56 @@
           template: '<hxvue-cardflag :option="option"></hxvue-cardflag>'
         },
         'tabFive': {
-          template: '<span>"第五个tab"</span>'
+          data: function () {
+            return {
+              busy: false,
+              isLoading: false,
+              data: [],
+              option: {
+                gutter: 10,
+                imgWidth: 250,
+                pageWidth: "90%",
+                preview: true,
+                authorClick: function(item, index) {
+                  this.$message.success("开始加载同一用户上传的图片数据:" + index);
+                  console.log(JSON.stringify(item));
+                },
+                iconLoveClick: function(item, index) {
+                  item.likeNum++;
+                  console.log(index, JSON.stringify(item));
+                },
+                downLoadClick: function(item, index) {
+                  item.downLoadNum++;
+                  console.log(index, JSON.stringify(item));
+                },
+                searchClick: function(item, index) {
+                  this.$message.success("开始搜索同类相似图片:" + index);
+                  console.log(index, JSON.stringify(item));
+                },
+                loadedImageNum: function(imageNum) {
+                  this.$message.success("已经加载图片数:" + imageNum);
+                  console.log("已经加载图片数:" + imageNum);
+                }
+              },
+            };
+          },
+          methods: {
+            loadNextData() {
+              this.busy = true;
+              if(!this.isLoading) {
+                loadData(this.data);
+                this.$message.success("新数据加载中...!");
+              }
+              this.busy = false;
+            },
+            loading(isLoading) {
+              this.isLoading = isLoading;
+            }
+          },
+          template: `<div v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
+                     <el-backtop :bottom="100"></el-backtop>
+                     <hxvue-waterfall :option="option" :imgs-arr="data" @loading="loading"></hxvue-waterfall>
+                     </div>`
         }
       },
       data() {
@@ -264,11 +315,7 @@
           this.$message.success("OPEN SUCCESS!");
         },
         switchClick(val) {
-          if (val == true) {
-            this.$message.success("Switch Open!");
-          } else {
-            this.$message.success("Switch Close!");
-          }
+          val ? this.$message.success("Switch Open!") : this.$message.success("Switch Close!");
           for (const switchInfo of this.option.controlData.switchControl) {
             console.log(switchInfo.label + switchInfo.value);
           }
@@ -278,5 +325,20 @@
         }
       }
     });
+    function loadData(demoData,demoDataNum=30) {
+      const base = parseInt((Math.random() * 60), 10) + 10;
+      for (let i = 0; i < demoDataNum; i++) {
+        let likeNum = Mock.mock("@integer(1000, 2000)");
+        let downLoadNum = Mock.mock("@integer(60, 100)");
+        let imgHeight = Math.floor(Math.random() * 200 + 150);
+        demoData.push({
+          thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
+          imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
+          authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
+          likeNum: `${likeNum}`,
+          downLoadNum: `${downLoadNum}`
+        });
+      }
+    }
   </script>
 </html>

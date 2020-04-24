@@ -27,11 +27,12 @@
 		</noscript>
 
 		<div id="app">
+			<span>登陆和注册组件演示</span>
 			<el-button type="primay" @click="handleVisible('login')">登录</el-button>
 			<el-button type="primay" @click="handleVisible('register')">注册</el-button>
 			<hxvue-login-and-register
 				:visible.sync="visible"
-				:option="flag ? option : option2"
+				:option="flag ? loginOption : registerOption"
 				@refresh="refresh"
 				@send="send"
 				@submit="submit"
@@ -48,18 +49,14 @@
 			el: '#app',
 			data() {
 			  return {
-					visible: false,
-					//控制传入哪一组参数
-					flag: true,
-			    option: {
-			      beforeCloseClick(hide) {
-			        this.$message.success("CLOSE SUCCESS!");
-			        hide();
-			      },
-						type: "login",
-						title: "登录",
+			    //控制传入哪一组参数
+			    flag: true,
+		        visible: false,
+			    loginOption: {
+    			  type: "login",
+				  title: "登录",
 			      logoUrl: `https://picsum.photos/id/${base}/300/200`,
-			      logoInfo: "浙江省2011协同创新中心",
+			      logoInfo: title,
 			      codeSrc: "",
 			      data: {
 			      	userName: {
@@ -87,15 +84,15 @@
 			          placeholder: "请输入验证码",
 			          rules: { required: true, message: "请输入合法的验证码", trigger: "blur" }
 			        }
-			      }
-			    },
-			    option2: {
-			      beforeCloseClick(hide) {
-			        this.$message.success("CLOSE SUCCESS!");
-			        hide();
 			      },
-						type: "register",
-						title: "注册",
+				  beforeCloseClick(hide) {
+					  this.$message.success("CLOSE SUCCESS!");
+				      hide();
+				  },
+			    },
+		        registerOption: {
+    			  type: "register",
+				  title: "注册",
 			      logoUrl: `https://picsum.photos/id/${base}/300/200`,
 			      logoInfo: title,
 			      href: "https://www.baidu.com/",
@@ -135,7 +132,11 @@
 			            }
 			          }
 			        }
-			      }
+			      },
+				  beforeCloseClick(hide) {
+					 this.$message.success("CLOSE SUCCESS!");
+					 hide();
+				  }
 			    }
 			  };
 			},
@@ -145,15 +146,11 @@
 			methods: {
 			  handleVisible(val) {
 			    this.visible = true;
-			    if (val === "login") {
-			      this.flag = true;
-			    } else {
-			      this.flag = false;
-			    }
+			    this.flag = val === "login";
 			  },
 			  refresh() {
 			    this.$message.success("图片验证码刷新成功");
-			    this.option.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
+			    this.loginOption.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
 			  },
 			  send(callback) {
 			    this.$message.success("验证码发送成功");
@@ -164,11 +161,7 @@
 			    console.log(form);
 			  },
 			  switchCard(val) {
-			    if (val === "login") {
-			      this.flag = false;
-			    } else {
-			      this.flag = true;
-			    }
+			    this.flag = val !== "login";
 			  }
 			}
 		})

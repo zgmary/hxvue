@@ -10,9 +10,9 @@ import Tabs from "./components/Tabs";
 import Video from "./components/Video";
 import LoginAndRegister from "./components/LoginAndRegister";
 import Search from "./components/Search";
-
+import WaterFall from "./components/WaterFall";
 // 组件版本号
-const $HxVueVersion = "Ver 0.1.4";
+const $HxVueVersion = "Ver 1.0.0";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 import $HxVueImagePreview from "./plugin/imagePreview/";
@@ -31,7 +31,8 @@ const components = [
   Tabs,
   Video,
   LoginAndRegister,
-  Search
+  Search,
+  WaterFall
 ];
 
 // 定义全局的API
