@@ -50,12 +50,7 @@ export default {
   components: {},
   created() {
     // 注意：缺省情况下日志输出等级为ERROR,要修改请执行函数this.$HxVueLog.setLevel("DEBUG")
-    this.$HxVueLog.capsule(
-      "ERROR",
-      "标题：提示",
-      "内容：日志信息输出！",
-      "primary"
-    );
+    this.$HxVueLog.capsule("ERROR", "标题：提示", "内容：日志信息输出！", "primary");
     this.$HxVueWatermark({ text: "组件版本：" + this.$HxVueVersion });
   }
 };
