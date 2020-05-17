@@ -11,8 +11,9 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
-    <script src="../node_modules/mockjs/dist/mock.js"></script>
     <script src="https://unpkg.com/vue-infinite-scroll"></script>
+    <script src="./baseTestData.js"></script>
+    <script src="./cardImgOption.js"></script>
 
     <style type="text/css">
         body {
@@ -45,27 +46,7 @@
         data() {
           return {
             busy: false,
-            option: {
-              cardSpan: 5,
-              preview: true,
-              data: [],
-              authorClick: function(item, index) {
-                this.$message.success("开始加载同一用户上传的图片数据:" + index);
-                console.log(JSON.stringify(item));
-              },
-              iconLoveClick: function(item, index) {
-                item.likeNum++;
-                console.log(index, JSON.stringify(item));
-              },
-              downLoadClick: function(item, index) {
-                item.downLoadNum++;
-                console.log(index, JSON.stringify(item));
-              },
-              searchClick: function(item, index) {
-                this.$message.success("开始搜索同类相似图片:" + index);
-                console.log(index, JSON.stringify(item));
-              }
-            },
+            option: cardImgOption
           };
         },
         methods: {
@@ -76,26 +57,11 @@
           loadNextData() {
               this.busy = true;
               this.$message.success("开始加载新的测试数据!");
-              loadData(this.option.data);
+              loadData(this.option.data, 60, "cardImg");
               this.busy = false;
             }
         }
     })
-    function loadData(demoData,demoDataNum=60) {
-        const base = parseInt((Math.random() * 60), 10) + 10;
-        for (let i = 0; i < demoDataNum; i++) {
-            let likeNum = Mock.mock("@integer(1000, 2000)");
-            let downLoadNum = Mock.mock("@integer(60, 100)");
-            let imgHeight = Math.floor(Math.random() * 200 + 150);
-            demoData.push({
-                thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
-                imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
-                authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-                likeNum: `${likeNum}`,
-                downLoadNum: `${downLoadNum}`
-            });
-        }
-    }
 </script>
 
 </html>

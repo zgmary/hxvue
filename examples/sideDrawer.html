@@ -10,7 +10,11 @@
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script src="../lib/hxvue.umd.js"></script>
-  <script src="../node_modules/mockjs/dist/mock.js"></script>
+  <script src="./baseTestData.js"></script>
+  <script src="./loginOption.js"></script>
+  <script src="./cardImgOption.js"></script>
+  <script src="./sideDrawerOption.js"></script>
+
   <style type="text/css">
     body {
       background-color: #e8eeec;
@@ -29,7 +33,7 @@
 <div id="app">
   <hxvue-side-drawer :option="option" @open="open">
     <template slot="login">
-      <hxvue-login :option="option1" @refresh="refresh" @submit="submit"></hxvue-login>
+      <hxvue-login :option="logOption" @refresh="refresh" @submit="submit"></hxvue-login>
     </template>
     <template slot="avatar">
       <hxvue-avatar :size="64" icon="el-icon-circle-plus-outline"></hxvue-avatar>
@@ -41,98 +45,33 @@
       <el-button type="primary" icon="el-icon-search">"我是测试"</el-button>
     </template>
   </hxvue-side-drawer>
-  <hxvue-cardimg :option="option2"></hxvue-cardimg>
+  <hxvue-cardimg :option="imgOption"></hxvue-cardimg>
 </div>
 </body>
 
 <script>
   //开始生成测试数据
-  const demoDataImage = [];
-  const base = parseInt((Math.random() * 60), 10) + 10;
-  const demoDataImageNum = 60;
-  for (let i = 0; i < demoDataImageNum; i++) {
-    let likeNum = Mock.mock('@integer(1000, 2000)');
-    let downLoadNum = Mock.mock('@integer(60, 100)');
-    demoDataImage.push({
-      thumbUrl: `https://picsum.photos/id/${base + i}/300/200`,
-      imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
-      authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-      likeNum: `${likeNum}`,
-      downLoadNum: `${downLoadNum}`
-    })
-  }
-  //生成侧边抽屉演示数据
-  const demoData = [];
-  const demoDataNum = 3;
-  const iconClass = [
-    "el-icon-plus",
-    "el-icon-edit",
-    "el-icon-close"
-  ];
-  const slotName = ["login", "avatar", "button"];
-  const tips = ["用户登陆", "用户头像", "文字卡片"];
-  for (let i = 0; i < demoDataNum; i++) {
-    demoData.push({
-      tips: tips[i],
-      btnText: "",
-      iconClass: iconClass[i],
-      slotName: slotName[i],
-    });
-  }
+  const loginOptionData = deepClone(baseLoginOption);
+  loginOptionData.codeType = "img";
+  loginOptionData.column.code.hide = false;
 
   new Vue({
     el: '#app',
     data() {
       return {
-        option: {
-          drawerWidth: "420px",
-          backgroundColor: "#d3d5d6",
-          btnInfo: demoData,
-          beforeCloseClick: function (hide) {
-            this.$message.success("CLOSE SUCCESS!");
-            hide();
-          }
-        },
-        option1: {
-          width: 400,
-          codeType: 'img',
-          codeSrc: '',
-          column: {
-            userName: {
-              label: '用户名',
-              placeholder: '手机号/邮箱/用户名',
-              autocomplete: 'off',
-              rules: { required: true, message: '请输入用户名', trigger: 'blur' }
-            },
-            password: {
-              label: '密码',
-              autocomplete: 'off',
-              rules: { required: true, message: '请输入密码', trigger: 'blur' }
-            },
-            code: {
-              label: '验证码',
-              tip: '点击图片可以刷新验证码',
-              autocomplete: 'off',
-              rules: { required: true, message: '请输验证码', trigger: 'blur' }
-            }
-          }
-        },
-        option2: {
-          cardSpan: 4,
-          imgHeight: 200,
-          fitModel: "fill",
-          preview: true,
-          data: demoDataImage
-        }
+        option: sideDrawerOption,
+        logOption: loginOptionData,
+        imgOption: cardImgOption
       }
     },
     created() {
+      loadData(this.imgOption.data, 60, "cardImg");
       this.refresh();
     },
     methods: {
       refresh() {
         this.$message.success('图片验证码刷新成功');
-        this.option1.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
+        this.logOption.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
       },
       send(done) {
         this.$message.success('验证码发送成功');

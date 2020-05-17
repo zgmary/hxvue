@@ -5,7 +5,7 @@
       :placeholder="searchPlaceholder"
       v-model="inputValue"
     >
-      <template v-slot:append v-if="similarSearchVisible">
+      <template v-slot:suffix v-if="similarSearchVisible">
         <el-tooltip :content="similarTips" placement="top-start">
           <div
             :class="bemCss('similar')"
@@ -72,8 +72,7 @@ export default create({
     optionInfo: function() {
       return this.option.optionInfo || [];
     }
-  },
-  methods: {}
+  }
 });
 </script>
 
@@ -85,27 +84,28 @@ $height: 50px;
   $upperLeft: 0px,
   $upperRight: 0px,
   $bottomRight: 0px,
-  $bottomLeft: 0px,
-  $isHeight: true
+  $bottomLeft: 0px
 ) {
-  border: none;
   border-radius: $upperLeft $upperRight $bottomRight $bottomLeft;
-  @if $isHeight {
-    height: $height;
+  height: $height;
+  border-right: none;
+  &:hover,
+  &:focus {
+    border-color: rgba($color: #d4d4d4, $alpha: 1);
   }
 }
 .hxvue-search {
   display: flex;
   height: $height;
-  width: 40%;
+  width: 800px;
   &__input {
-    width: 60%;
+    width: 50%;
     >>> .el-input__inner {
       @include borderInfo(5px, 0px, 0px, 5px);
     }
-    >>> .el-input-group__append {
-      @include borderInfo(0px, 0px, 0px, 0px, false);
-      background-color: white;
+    >>> .el-input__suffix {
+      display: flex;
+      align-items: center;
     }
   }
   &__similar {
@@ -125,12 +125,10 @@ $height: 50px;
     }
   }
   &__btn {
-    height: $height;
     background-color: red;
     color: white;
     font-size: 20px;
     border-radius: 0 5px 5px 0;
-    border: solid 1px $theme-color;
   }
 }
 </style>

@@ -1,36 +1,40 @@
 <template>
-  <svg :style="this.style" aria-hidden="true">
-    <use :xlink:href="this.iconName" />
+  <svg :class="this.svgClass" aria-hidden="true">
+    <use :xlink:href="this.iconRealName" />
   </svg>
 </template>
 
 <script>
 import create from "../../core/create";
-const iconStyleDefault = {
-  width: "1em",
-  height: "1em",
-  verticalAlign: "-0.15em",
-  fill: "currentColor",
-  overflow: "hidden"
-};
 export default create({
   name: "svg-icon",
   props: {
-    iconClass: {
+    iconName: {
       type: String,
       required: true
     },
-    style: {
-      type: Object,
-      default: () => {
-        return iconStyleDefault;
-      }
+    className: {
+      type: String,
+      default: ""
     }
   },
-  data() {
-    return {
-      iconName: `#${this.iconClass}`
-    };
+  computed: {
+    iconRealName() {
+      return `#icon-${this.iconName}`;
+    },
+    svgClass() {
+      return this.className || "svg-icon";
+    }
   }
 });
 </script>
+
+<style scoped lang="scss">
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style>
