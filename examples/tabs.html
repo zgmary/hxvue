@@ -17,8 +17,14 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
-    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <script src="./baseTestData.js"></script>
     <script src="https://unpkg.com/vue-infinite-scroll"></script>
+    <script src="./sideDrawerOption.js"></script>
+    <script src="./cardImgOption.js"></script>
+    <script src="./cardTextOption.js"></script>
+    <script src="./cardFlagOption.js"></script>
+    <script src="./waterFallOption.js"></script>
+
     <style type="text/css">
       body {
         overflow: auto !important;
@@ -50,24 +56,6 @@
   </body>
 
   <script>
-    //生成侧边抽屉演示数据
-    const demoDataDrawer = [];
-    const demoDataDrawerNum = 3;
-    const iconClassDrawer = [
-      "el-icon-plus",
-      "el-icon-edit",
-      "el-icon-close"
-    ];
-    const slotName = ["login", "avatar", "button"];
-    const tips = ["用户登陆", "用户头像", "文字卡片"];
-    for (let i = 0; i < demoDataDrawerNum; i++) {
-      demoDataDrawer.push({
-        tips: tips[i],
-        btnText: "",
-        iconClass: iconClassDrawer[i],
-        slotName: slotName[i],
-      });
-    }
     //开始生成tab栏测试数据
     const demoData = [];
     const demoDataNum = 5;
@@ -81,143 +69,53 @@
         iconClass: iconClass[i]
       });
     }
-    //开始生成图片平铺例子数据
-    const demoDataImage = [];
-    const base = parseInt((Math.random() * 60), 10) + 10;
-    const demoDataImageNum = 60;
-    for (let i = 0; i < demoDataImageNum; i++) {
-      let likeNum = Mock.mock('@integer(1000, 2000)');
-      let downLoadNum = Mock.mock('@integer(60, 100)');
-      demoDataImage.push({
-        thumbUrl: `https://picsum.photos/id/${base + i}/300/200`,
-        imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
-        authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-        likeNum: `${likeNum}`,
-        downLoadNum: `${downLoadNum}`
-      })
-    }
-    //开始生成"相似网站标签例子","导航标签例子(样式一)"测试数据
-    const demoDataCard = [];
-    const demoDataCardNum = 60;
-    for (let i = 0; i < demoDataCardNum; i++) {
-      let likeNum = Mock.mock('@integer(1, 100)');
-      let viewNum = Mock.mock('@integer(1000, 2000)');
-      demoDataCard.push({
-        href: "http://www.163.com",
-        target: '_blank',
-        logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
-        title: Mock.mock('@ctitle(3, 30)'),
-        content: Mock.mock('@cparagraph'),
-        authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-        likeNum: `${likeNum}`,
-        viewNum: `${viewNum}`
-      })
-    }
-    //开始生成导航标签例子(样式二)测试数据
-    const demoDataFlag = [];
-    const demoDataFlagNum = 60;
-    for (let i = 0; i < demoDataFlagNum; i++) {
-      let likeNum = Mock.mock('@integer(1, 100)');
-      let viewNum = Mock.mock('@integer(1000, 2000)');
-      demoDataFlag.push({
-        href: "http://www.163.com",
-        target: '_blank',
-        logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
-        title: Mock.mock('@ctitle(3, 8)'),
-        content: Mock.mock('@cparagraph'),
-        tag: ["CN", "收费"],
-        likeNum: `${likeNum}`,
-        viewNum: `${viewNum}`
-      })
-    }
+    //这个是浅拷贝，只有一层
+    const textOptionData = Object.assign({}, cardTextOption);
+    textOptionData.cardType = "cardText";
     new Vue({
       el: "#app",
       components: {
         'tabOne': {
           data: function () {
             return {
-              option: {
-                cardSpan: 4,
-                imgHeight: 200,
-                fitModel: "fill",
-                preview: true,
-                data: demoDataImage
-              }
+              option: cardImgOption
             }
+          },
+          created() {
+            loadData(this.option.data, 30);
           },
           template: '<hxvue-cardimg :option="option"></hxvue-cardimg>'
         },
         'tabTwo': {
           data: function () {
             return {
-              option: {
-                cardSpan: 8,
-                gutter: 10,
-                cardType: "similarityText",
-                data: demoDataCard,
-                gotoWebClick: function (item, index) {
-                  console.log(index);
-                  item.viewNum++;
-                },
-                authorClick: function (item, index) {
-                  this.$message.success("开始加载新数据");
-                  console.log(JSON.stringify(item));
-                  this.option.data = demoDataCard.slice(demoDataCardNum/2);
-                },
-                iconLoveClick: function (item, index) {
-                  this.$message.success("点击了收藏键！");
-                  item.likeNum++;
-                  console.log(JSON.stringify(item));
-                }
-              },
+              option: cardTextOption
             }
+          },
+          created() {
+            loadData(this.option.data, 60, "cardFlag");
           },
           template: '<hxvue-cardtext :option="option"></hxvue-cardtext>'
         },
         'tabThree': {
           data: function () {
             return {
-              option: {
-                cardSpan: 4,
-                gutter: 10,
-                cardType: "cardText",
-                data: demoDataCard,
-                gotoWebClick: function (item, index) {
-                  console.log(index);
-                  item.viewNum++;
-                },
-                authorClick: function (item, index) {
-                  this.$message.success("开始加载新数据");
-                  console.log(JSON.stringify(item));
-                  this.option.data = demoDataCard.slice(demoDataCardNum/2);
-                },
-                iconLoveClick: function (item, index) {
-                  this.$message.success("点击了收藏键！");
-                  item.likeNum++;
-                  console.log(JSON.stringify(item));
-                }
-              },
+              option: textOptionData
             }
+          },
+          created() {
+            loadData(this.option.data, 60, "cardFlag");
           },
           template: '<hxvue-cardtext :option="option"></hxvue-cardtext>'
         },
         'tabFour': {
           data: function () {
             return {
-              option: {
-                cardSpan: 4,
-                gutter: 6,
-                data: demoDataFlag,
-                gotoWebClick: function(item, index) {
-                  console.log(index);
-                  item.viewNum++;
-                },
-                iconLoveClick: function(item, index) {
-                  console.log(index);
-                  item.likeNum++;
-                }
-              },
+              option: cardFlagOption
             }
+          },
+          created() {
+            loadData(this.option.data, 60, "cardFlag");
           },
           template: '<hxvue-cardflag :option="option"></hxvue-cardflag>'
         },
@@ -225,52 +123,23 @@
           data: function () {
             return {
               busy: false,
-              isLoading: false,
               data: [],
-              option: {
-                gutter: 10,
-                imgWidth: 250,
-                pageWidth: "90%",
-                preview: true,
-                authorClick: function(item, index) {
-                  this.$message.success("开始加载同一用户上传的图片数据:" + index);
-                  console.log(JSON.stringify(item));
-                },
-                iconLoveClick: function(item, index) {
-                  item.likeNum++;
-                  console.log(index, JSON.stringify(item));
-                },
-                downLoadClick: function(item, index) {
-                  item.downLoadNum++;
-                  console.log(index, JSON.stringify(item));
-                },
-                searchClick: function(item, index) {
-                  this.$message.success("开始搜索同类相似图片:" + index);
-                  console.log(index, JSON.stringify(item));
-                },
-                loadedImageNum: function(imageNum) {
-                  this.$message.success("已经加载图片数:" + imageNum);
-                  console.log("已经加载图片数:" + imageNum);
-                }
-              },
+              option: waterFallOption
             };
           },
           methods: {
             loadNextData() {
               this.busy = true;
-              if(!this.isLoading) {
-                loadData(this.data);
+              if(this.option.isLoaded) {
+                loadData(this.data,30);
                 this.$message.success("新数据加载中...!");
               }
               this.busy = false;
-            },
-            loading(isLoading) {
-              this.isLoading = isLoading;
             }
           },
           template: `<div v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
                      <el-backtop :bottom="100"></el-backtop>
-                     <hxvue-waterfall :option="option" :imgs-arr="data" @loading="loading"></hxvue-waterfall>
+                     <hxvue-waterfall :option="option" :imgs-arr="data"></hxvue-waterfall>
                      </div>`
         }
       },
@@ -287,20 +156,12 @@
                 { label: "收费", value: true }
               ],
               iconControl: [
-                { icon: "el-icon-menu", name: "平铺图" },
-                { icon: "el-icon-s-grid", name: "非平铺图" }
+                { icon: "el-icon-menu", name: "平铺图", tips: "图片平铺布局" },
+                { icon: "el-icon-s-grid", name: "非平铺图" , tips: "图片瀑布流布局"}
               ]
             }
           },
-          optionDrawer: {
-            drawerWidth: "420px",
-            backgroundColor: "#d3d5d6",
-            btnInfo: demoDataDrawer,
-            beforeCloseClick: function (hide) {
-              this.$message.success("CLOSE SUCCESS!");
-              hide();
-            }
-          }
+          optionDrawer: sideDrawerOption
         };
       },
       methods: {
@@ -320,25 +181,10 @@
             console.log(switchInfo.label + switchInfo.value);
           }
         },
-        iconClick(name) {
-          this.$message.success(name);
+        iconClick(item, index) {
+          this.$message.success("序号：" + index + "，内容：" + item.name);
         }
       }
     });
-    function loadData(demoData,demoDataNum=30) {
-      const base = parseInt((Math.random() * 60), 10) + 10;
-      for (let i = 0; i < demoDataNum; i++) {
-        let likeNum = Mock.mock("@integer(1000, 2000)");
-        let downLoadNum = Mock.mock("@integer(60, 100)");
-        let imgHeight = Math.floor(Math.random() * 200 + 150);
-        demoData.push({
-          thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
-          imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
-          authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-          likeNum: `${likeNum}`,
-          downLoadNum: `${downLoadNum}`
-        });
-      }
-    }
   </script>
 </html>

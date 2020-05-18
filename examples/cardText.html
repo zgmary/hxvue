@@ -11,8 +11,9 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="../lib/hxvue.umd.js"></script>
-    <script src="../node_modules/mockjs/dist/mock.js"></script>
     <script src="https://unpkg.com/vue-infinite-scroll"></script>
+    <script src="./baseTestData.js"></script>
+    <script src="./cardTextOption.js"></script>
 
     <style type="text/css">
         body {
@@ -40,75 +41,26 @@
 </body>
 
 <script>
+    //这个是浅拷贝，只有一层
+    const textOptionData = Object.assign({}, cardTextOption);
+    textOptionData.cardType = "cardText";
     new Vue({
         el: '#app',
         data() {
             return {
-                similarityOption: {
-                    cardSpan: 12,
-                    cardType: "similarityText",
-                    data: [],
-                    gotoWebClick: function (item, index) {
-                        console.log(index);
-                        item.viewNum++;
-                    },
-                    authorClick: function (item, index) {
-                        this.$message.success("点击了上传者头像！");
-                        console.log(JSON.stringify(item));
-                    },
-                    iconLoveClick: function (item, index) {
-                        this.$message.success("点击了收藏键！");
-                        item.likeNum++;
-                        console.log(JSON.stringify(item));
-                    }
-                },
-                textOption: {
-                    cardSpan: 12,
-                    cardType: "cardText",
-                    data: [],
-                    gotoWebClick: function (item, index) {
-                        console.log(index);
-                        item.viewNum++;
-                    },
-                    authorClick: function (item, index) {
-                        this.$message.success("点击了上传者头像！");
-                        console.log(JSON.stringify(item));
-                    },
-                    iconLoveClick: function (item, index) {
-                        this.$message.success("点击了收藏键！");
-                        item.likeNum++;
-                        console.log(JSON.stringify(item));
-                    }
-                },
+                similarityOption: cardTextOption,
+                textOption: textOptionData
             }
         },
         methods: {
             loadNextData() {
                 this.$message.success("开始加载新的测试数据");
                 this.busy = true;
-                loadData(this.similarityOption.data);
-                loadData(this.textOption.data);
+                loadData(this.textOption.data, 60, "cardFlag");
                 this.busy = false;
             }
         }
     })
-    function loadData(demoData,demoDataNum=60) {
-        const base = parseInt((Math.random() * 60), 10) + 10;
-        for (let i = 0; i < demoDataNum; i++) {
-            let likeNum = Mock.mock('@integer(1, 100)');
-            let viewNum = Mock.mock('@integer(1000, 2000)');
-            demoData.push({
-                href: "http://www.163.com",
-                target: '_blank',
-                logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
-                title: Mock.mock('@ctitle(3, 30)'),
-                content: Mock.mock('@cparagraph'),
-                authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
-                likeNum: `${likeNum}`,
-                viewNum: `${viewNum}`
-            })
-        }
-    }
 </script>
 
 </html>

@@ -34,7 +34,13 @@
           v-for="(item, index) in iconControl"
           :key="index"
         >
-          <i :class="item.icon" @click="iconClick(item.name)"></i>
+          <el-tooltip
+            :content="item.tips"
+            :disabled="item.tips === undefined"
+            placement="top-start"
+          >
+            <i :class="item.icon" @click="iconClick(item, index)"></i>
+          </el-tooltip>
         </div>
       </div>
     </div>
@@ -99,8 +105,8 @@ export default create({
     switchClick(val) {
       this.$emit("switch-click", val);
     },
-    iconClick(name) {
-      this.$emit("icon-click", name);
+    iconClick(item, index) {
+      this.$emit("icon-click", item, index);
     }
   }
 });
@@ -128,7 +134,7 @@ $theme-color: #ff0000;
       &__nav {
         &-wrap {
           &::after {
-            height: 0px;
+            height: 0;
           }
         }
       }
@@ -144,6 +150,9 @@ $theme-color: #ff0000;
     margin-right: 20px;
     font-size: 24px;
     color: rgb(0, 0, 0, 0.6);
+    &:hover {
+      color: rgb(0, 0, 0);
+    }
   }
 }
 </style>

@@ -4,7 +4,7 @@
     <!--    <HelloWorld msg="Welcome to Your Vue.js App" />-->
     <h3>SVG Sprite使用示意</h3>
     <hr />
-    <hxvue-svg-icon icon-class="icon-lock" :style="iconStyle"></hxvue-svg-icon>
+    <hxvue-svg-icon icon-name="lock" :style="iconStyle"></hxvue-svg-icon>
     <hr />
     <hxvue-login :option="option"></hxvue-login>
   </div>
