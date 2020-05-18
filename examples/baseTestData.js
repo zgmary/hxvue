@@ -16,6 +16,8 @@ function loadData(demoData, demoDataNum = 60, dataType = "cardImg") {
     let imgHeight = Math.floor(Math.random() * 200 + 150);
     demoData.push({
       thumbUrl: `https://picsum.photos/id/${base + i}/300/${imgHeight}`,
+      thumbUrlWidth: 300,
+      thumbUrlHeight: `${imgHeight}`,
       imgUrl: `https://picsum.photos/id/${base + i}/600/400`,
       authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
       likeNum: `${likeNum}`,

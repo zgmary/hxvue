@@ -114,8 +114,6 @@ export default create({
     }
   },
   mounted() {
-    this.preload();
-    this.cols = this.calcuCols();
     this.$on("preloaded", () => {
       this.imgsArr_c = this.imgsArr.concat([]); // 预加载完成，这时才开始渲染
       this.$nextTick(() => {
@@ -128,9 +126,11 @@ export default create({
       });
     });
     window.addEventListener("resize", this.response);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.response);
+    this.$once("hook:beforeDestroy", () => {
+      window.removeEventListener("resize", this.response);
+    });
+    this.cols = this.calcuCols();
+    this.preload();
   },
   watch: {
     imgsArr(newV) {
@@ -158,23 +158,34 @@ export default create({
       this.imgsArr.forEach((imgItem, imgIndex) => {
         if (imgIndex < this.loadedCount) return; // 只对新加载图片进行预加载
         if (imgItem[this.srcKey]) {
-          const oImg = new Image();
-          oImg.src = imgItem[this.srcKey];
-          oImg.onload = oImg.onerror = e => {
+          //此处对缩略图的大小进行判断，如存在就直接使用而不是进行预加载获取
+          if (imgItem.thumbUrlWidth === 0 || imgItem.thumbUrlHeight === 0) {
+            const oImg = new Image();
+            oImg.src = imgItem[this.srcKey];
+            oImg.onload = oImg.onerror = e => {
+              this.loadedCount++;
+              // 预加载图片，计算图片容器的高
+              this.imgsArr[imgIndex]._height =
+                e.type === "load"
+                  ? Math.round((this.imgWidth * oImg.height) / oImg.width)
+                  : this.imgWidth;
+              if (e.type === "error") {
+                this.imgsArr[imgIndex]._error = true;
+                this.$emit("imgError", this.imgsArr[imgIndex]);
+              }
+              if (this.loadedCount === this.imgsArr.length) {
+                this.$emit("preloaded");
+              }
+            };
+          } else {
             this.loadedCount++;
-            // 预加载图片，计算图片容器的高
-            this.imgsArr[imgIndex]._height =
-              e.type === "load"
-                ? Math.round((this.imgWidth * oImg.height) / oImg.width)
-                : this.imgWidth;
-            if (e.type === "error") {
-              this.imgsArr[imgIndex]._error = true;
-              this.$emit("imgError", this.imgsArr[imgIndex]);
-            }
+            this.imgsArr[imgIndex]._height = Math.round(
+              (this.imgWidth * imgItem.thumbUrlHeight) / imgItem.thumbUrlWidth
+            );
             if (this.loadedCount === this.imgsArr.length) {
               this.$emit("preloaded");
             }
-          };
+          }
         } else {
           this.loadedCount++;
           this.imgsArr[imgIndex]._height = 0;
