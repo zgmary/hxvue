@@ -5,12 +5,9 @@
     <div :class="bemCss('card')">
       <div :class="bemCss('catalogue')">
         <div :class="bemCss('time')">{{ time }}</div>
-        <img
-          :class="bemCss('img')"
-          :src="option.logoUrl"
-          alt="图像获取失败"
-          object-fit="fill"
-        />
+        <slot name="logo">
+          <img :class="bemCss('logo')" :src="this.logoUrl" alt="图像获取失败" />
+        </slot>
         <div :class="bemCss('info')">{{ option.logoInfo }}</div>
       </div>
       <div :class="bemCss('content')">
@@ -69,7 +66,7 @@
                   <img
                     :class="bemCss('code', 'img')"
                     v-if="isLogin"
-                    :src="option.codeSrc || ''"
+                    :src="codeSrc"
                     alt="验证码获取失败"
                     @click="refresh"
                   />
@@ -126,6 +123,7 @@ export default create({
         //明确checked，以防出现bug
         checked: false
       },
+      logoUrl: this.option.logoUrl || "",
       time: "",
       text: "",
       timer: "",
@@ -165,6 +163,9 @@ export default create({
     },
     code() {
       return this.data.code || {};
+    },
+    codeSrc() {
+      return this.option.codeSrc || "";
     },
     checked() {
       return this.data.checked || {};
@@ -295,7 +296,7 @@ export default create({
     color: floralwhite;
     font-size: 18px;
   }
-  &__img {
+  &__logo {
     @include positionInfo(absolute, 10%, 25%, 80%, 50%);
   }
   &__info {

@@ -156,8 +156,8 @@
                 { label: "收费", value: true }
               ],
               iconControl: [
-                { icon: "el-icon-menu", name: "平铺图" },
-                { icon: "el-icon-s-grid", name: "非平铺图" }
+                { icon: "el-icon-menu", name: "平铺图", tips: "图片平铺布局" },
+                { icon: "el-icon-s-grid", name: "非平铺图" , tips: "图片瀑布流布局"}
               ]
             }
           },
@@ -181,8 +181,8 @@
             console.log(switchInfo.label + switchInfo.value);
           }
         },
-        iconClick(name) {
-          this.$message.success(name);
+        iconClick(item, index) {
+          this.$message.success("序号：" + index + "，内容：" + item.name);
         }
       }
     });

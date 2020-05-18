@@ -32,16 +32,16 @@
 
 <div id="app">
   <hxvue-side-drawer :option="option" @open="open">
-    <template slot="login">
+    <template v-slot:login>
       <hxvue-login :option="logOption" @refresh="refresh" @submit="submit"></hxvue-login>
     </template>
-    <template slot="avatar">
+    <template v-slot:avatar>
       <hxvue-avatar :size="64" icon="el-icon-circle-plus-outline"></hxvue-avatar>
       <hxvue-avatar size="large" icon="el-icon-circle-plus-outline"></hxvue-avatar>
       <hxvue-avatar icon="el-icon-circle-plus-outline"></hxvue-avatar>
       <hxvue-avatar size="small" icon="el-icon-circle-plus-outline"></hxvue-avatar>
     </template>
-    <template slot="button">
+    <template v-slot:button>
       <el-button type="primary" icon="el-icon-search">"我是测试"</el-button>
     </template>
   </hxvue-side-drawer>
