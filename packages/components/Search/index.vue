@@ -59,9 +59,7 @@ export default create({
   data() {
     return {
       searchPlaceholder: this.option.searchPlaceholder || "请输入关键字查询",
-      selectValue: this.option.selectValue || "",
       similarTips: this.option.similarTips || "以图搜图",
-      similarSearchVisible: this.option.similarSearchVisible || false,
       searchTips: this.option.searchTips || "关键词搜索",
       inputValue: "",
       searchClick: this.option.searchClick,
@@ -71,7 +69,13 @@ export default create({
   computed: {
     optionInfo: function() {
       return this.option.optionInfo || [];
-    }
+    },
+    similarSearchVisible: function() {
+      return this.option.similarSearchVisible || false;
+    },
+		selectValue: function() {
+			return this.option.selectValue || ""
+		}
   }
 });
 </script>
@@ -97,9 +101,9 @@ $height: 50px;
 .hxvue-search {
   display: flex;
   height: $height;
-  width: 800px;
+  width: 700px;
   &__input {
-    width: 50%;
+    width: 60%;
     >>> .el-input__inner {
       @include borderInfo(5px, 0px, 0px, 5px);
     }
@@ -116,7 +120,7 @@ $height: 50px;
     }
   }
   &__select {
-    width: 20%;
+    width: 30%;
     >>> .el-input__inner {
       @include borderInfo;
     }
@@ -125,6 +129,7 @@ $height: 50px;
     }
   }
   &__btn {
+    width: 10%;
     background-color: red;
     color: white;
     font-size: 20px;
