@@ -104,8 +104,18 @@ export default create({
       this.player.dispose();
     }
   },
+  watch: {
+    // 改变source源，且只能改变source
+    source(val) {
+      this.player.pause();
+      this.player.src(val);
+      this.player.load(val);
+      // this.player.play();
+    }
+  },
   mounted() {
-    if (!this.player) {
+    // 需有预先配置方能初始化
+    if (JSON.stringify(this.option) !== "{}") {
       this.initialize();
     }
   },
