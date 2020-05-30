@@ -73,9 +73,9 @@ export default create({
     similarSearchVisible: function() {
       return this.option.similarSearchVisible || false;
     },
-		selectValue: function() {
-			return this.option.selectValue || ""
-		}
+    selectValue: function() {
+      return this.option.selectValue || "";
+    }
   }
 });
 </script>
