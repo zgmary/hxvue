@@ -37,11 +37,10 @@
 				</svg>
 			</div>
 			<span>登陆和注册组件演示</span>
-			<el-button type="primay" @click="handleVisible('login')">登录</el-button>
-			<el-button type="primay" @click="handleVisible('register')">注册</el-button>
+			<hr/>
 			<hxvue-login-and-register
 				:visible.sync="visible"
-				:option="flag ? loginOption : registerOption"
+				:option="loginOption"
 				@refresh="refresh"
 				@send="send"
 				@submit="submit"
@@ -57,20 +56,16 @@
 	<script>
 		const base = parseInt((Math.random() * 60), 10) + 10;
 		const title = Mock.mock("@ctitle(5,10)");
-		//这个是浅拷贝，只有一层
 		option.logoUrl = `https://picsum.photos/id/${base}/300/200`;
 		option.logoInfo = title;
-		const loginOptionData = Object.assign({}, option);
-		loginOptionData.type = "login";
 		new Vue({
 			el: '#app',
 			data() {
 			  return {
 			    //控制传入哪一组参数
 			    flag: true,
-		        visible: false,
-			    loginOption: loginOptionData,
-		        registerOption: option,
+		        visible: true,
+			    loginOption: option,
 				iconStyle: {
 					position: "absolute",
 					fill: "white",
@@ -85,10 +80,6 @@
 			  this.refresh();
 			},
 			methods: {
-			  handleVisible(val) {
-			    this.visible = true;
-			    this.flag = val === "login";
-			  },
 			  refresh() {
 			    this.$message.success("图片验证码刷新成功");
 			    this.loginOption.codeSrc = "https://pigx.pig4cloud.com/code?randomStr=" + new Date().getTime();
@@ -102,7 +93,8 @@
 			    console.log(form);
 			  },
 			  switchCard(val) {
-			    this.flag = val !== "login";
+				this.loginOption.type = val;
+				this.loginOption.title = (val === "login")?"登陆":"注册";
 			  }
 			}
 		})

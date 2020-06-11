@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 option = {
-  type: "register",
-  title: "注册",
+  type: "login",
+  title: "登陆",
   logoUrl: "",
   logoInfo: "",
   href: "https://www.baidu.com/",

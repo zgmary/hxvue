@@ -12,7 +12,7 @@ import LoginAndRegister from "./components/LoginAndRegister";
 import Search from "./components/Search";
 import WaterFall from "./components/WaterFall";
 // 组件版本号
-const $HxVueVersion = "Ver 1.1.3";
+const $HxVueVersion = "Ver 1.1.4";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 import $HxVueImagePreview from "./plugin/imagePreview/";

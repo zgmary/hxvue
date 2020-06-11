@@ -15,7 +15,7 @@
         <div :class="bemCss('close')" @click="handleClose">
           <i class="el-icon-close"></i>
         </div>
-        <div :class="bemCss('title')">{{ option.title }}</div>
+        <div :class="bemCss('title')">{{ title }}</div>
 
         <el-form :class="bemCss('form')" :model="form" ref="form" status-icon>
           <el-form-item :rules="userName.rules" prop="userName">
@@ -100,10 +100,10 @@
           </el-form-item>
         </el-form>
         <div v-if="isLogin" :class="bemCss('switch', 'login')">
-          还未注册？<span @click="switchCard('login')">立即注册</span>
+          还未注册？<span @click="switchCard('register')">立即注册</span>
         </div>
         <div v-if="isRegister" :class="bemCss('switch', 'register')">
-          已有账号？<span @click="switchCard('register')">立即登录</span>
+          已有账号？<span @click="switchCard('login')">立即登录</span>
         </div>
       </div>
     </div>
@@ -148,6 +148,9 @@ export default create({
     },
     type() {
       return this.option.type || "login";
+    },
+    title() {
+      return this.option.title || "登陆";
     },
     isLogin() {
       return this.type === "login";
