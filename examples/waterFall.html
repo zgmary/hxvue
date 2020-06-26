@@ -36,7 +36,7 @@
     <el-button type="primay" @click="reLoadData">重新加载数据</el-button>
     <HR color=#987cb9 SIZE=3 />
     <el-backtop :bottom="100"></el-backtop>
-    <hxvue-waterfall :option="option" :imgs-arr="data" @image-click="imageClick"></hxvue-waterfall>
+    <hxvue-waterfall :option="option" :imgs-arr="data" @image-dbclick="imageDbClick"></hxvue-waterfall>
 </div>
 
 </body>
@@ -55,7 +55,7 @@
             this.reLoadData();
         },
         methods: {
-            imageClick: function(item, index) {
+            imageDbClick: function(item, index) {
                 this.$message.success("图片点击后内部插件放大查看");
                 console.log(index, JSON.stringify(item));
                 console.log("this.option.isLoaded=" + this.option.isLoaded);

@@ -18,42 +18,37 @@
               width="100%"
               :object-fit="fitModel"
               loading="lazy"
-              @dblclick="imageClick(item, index)"
+              @dblclick="imageDbClick(item, index)"
             />
           </div>
-          <div :class="bemCss('menu')">
-            <div
-              :class="bemCss('author')"
-              @click="authorClick ? authorClick(item, index) : ''"
-            >
-              <el-avatar :size="20" :src="item.authorUrl"></el-avatar>
-            </div>
-            <div v-for="n in 3" :key="n"></div>
-            <div
-              :class="bemCss('icon')"
-              @click="iconLoveClick ? iconLoveClick(item, index) : ''"
-            >
-              <i :class="iconLove" :style="{ color: item.color || 'red' }"></i>
-              <p>{{ item.likeNum }}</p>
-            </div>
-            <div
-              :class="bemCss('icon')"
-              @click="downLoadClick ? downLoadClick(item, index) : ''"
-            >
-              <i
-                :class="iconDownLoad"
-                :style="{ color: item.color || 'red' }"
-              ></i>
-              <p>{{ item.downLoadNum }}</p>
-            </div>
-            <div
-              :class="bemCss('icon')"
-              @click="searchClick ? searchClick(item, index) : ''"
-            >
-              <i
-                :class="iconSearch"
-                :style="{ color: item.color || 'red' }"
-              ></i>
+          <div :class="bemCss('menu')" v-if="menuIsVisible">
+            <div v-for="(menuItem, menuIndex) in menuArr" :key="menuIndex">
+              <div
+                :class="
+                  menuItem.menuType === 'avatar'
+                    ? bemCss('author')
+                    : bemCss('icon')
+                "
+                @click="
+                  menuClick ? menuClick(item, index, menuItem, menuIndex) : ''
+                "
+              >
+                <el-avatar
+                  :size="20"
+                  :src="item.authorUrl"
+                  v-if="menuItem.menuType === 'avatar'"
+                ></el-avatar>
+                <div v-else-if="menuItem.menuType === 'icon'">
+                  <i
+                    :class="menuItem.iconName"
+                    :style="{ color: menuItem.iconColor || 'red' }"
+                  ></i>
+                  <span v-if="menuItem.itemKey !== undefined">
+                    {{ item[menuItem.itemKey] }}
+                  </span>
+                </div>
+                <div v-else></div>
+              </div>
             </div>
           </div>
         </div>
@@ -78,13 +73,7 @@ export default create({
       cardSpan: this.option.cardSpan || 4,
       imgHeight: this.option.imgHeight || 200,
       fitModel: this.option.fitModel || "fill",
-      iconLove: this.option.iconLove || "el-icon-star-off",
-      iconDownLoad: this.option.iconDownLoad || "el-icon-download",
-      iconSearch: this.option.iconSearch || "el-icon-search",
-      authorClick: this.option.authorClick,
-      iconLoveClick: this.option.iconLoveClick,
-      downLoadClick: this.option.downLoadClick,
-      searchClick: this.option.searchClick
+      menuClick: this.option.menuClick
     };
   },
   computed: {
@@ -99,14 +88,20 @@ export default create({
     },
     cardData: function() {
       return this.option.data || [];
+    },
+    menuIsVisible: function() {
+      return this.option.menuArr || false;
+    },
+    menuArr: function() {
+      return this.option.menuArr;
     }
   },
   methods: {
-    imageClick(item, index) {
+    imageDbClick(item, index) {
       if (this.preview) {
         this.$HxVueImagePreview(this.cardData, index);
       }
-      this.$emit("image-click", item, index);
+      this.$emit("image-dbclick", item, index);
     }
   }
 });
@@ -121,8 +116,8 @@ export default create({
   &__item {
     box-sizing: border-box;
     &:hover {
-      box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(0, 0, 0, 0.1) inset;
+      box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(0, 0, 0, 0.3) inset;
       .hxvue-cardimg__menu {
         display: flex;
         opacity: 0.7;
@@ -152,17 +147,16 @@ export default create({
     background: #f4f6f7;
   }
   &__author {
-    padding-top: 4px;
+    padding-top: 5px;
   }
   &__icon {
-    display: flex;
-    align-items: center;
-    font-size: 10px;
     i {
+      padding-top: 7px;
       font-size: 18px;
     }
-    p {
-      margin-left: 5px;
+    span {
+      font-size: 12px;
+      margin-left: 3px;
     }
   }
 }

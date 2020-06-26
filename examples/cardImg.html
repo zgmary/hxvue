@@ -35,7 +35,7 @@
     <span>结合无限加载模式的平铺图片标签卡片演示</span>
     <HR color=#987cb9 SIZE=3 />
     <el-backtop :bottom="100"></el-backtop>
-    <hxvue-cardimg :option="option" @image-click="imageClick"></hxvue-cardimg>
+    <hxvue-cardimg :option="option" @image-dbclick="imageDbClick"></hxvue-cardimg>
 </div>
 
 </body>
@@ -50,7 +50,7 @@
           };
         },
         methods: {
-          imageClick: function(item, index) {
+          imageDbClick: function(item, index) {
             this.$message.success("图片点击后内部插件放大查看");
             console.log(index, JSON.stringify(item));
           },
