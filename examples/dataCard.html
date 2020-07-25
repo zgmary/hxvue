@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataCard组件测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <script src="./baseTestData.js"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #e8eeec;
+            font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but
+        <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+    <div id="app">
+        <hxvue-data-card :option="option" @card-click="cardClick"></hxvue-data-card>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                option: {
+                    cardSpan: 4,
+                    gutter:20,
+                    imgHeight: 350,
+                    data: []
+                }
+            }
+        },
+        methods: {
+            cardClick: function(item, index) {
+                this.$message.success("卡片被点击了！");
+                console.log(index, JSON.stringify(item));
+            }
+        },
+        created() {
+            loadData(this.option.data,60, "cardImg");
+        }
+    })
+</script>
+</html>

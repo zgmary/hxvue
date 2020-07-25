@@ -11,8 +11,11 @@ import Video from "./components/Video";
 import LoginAndRegister from "./components/LoginAndRegister";
 import Search from "./components/Search";
 import WaterFall from "./components/WaterFall";
+import FilterDrawer from "./components/FilterDrawer";
+import DataCard from "./components/DataCard";
+
 // 组件版本号
-const $HxVueVersion = "Ver 1.1.5";
+const $HxVueVersion = "Ver 1.1.6";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 import $HxVueImagePreview from "./plugin/imagePreview/";
@@ -32,7 +35,9 @@ const components = [
   Video,
   LoginAndRegister,
   Search,
-  WaterFall
+  WaterFall,
+  FilterDrawer,
+  DataCard
 ];
 
 // 定义全局的API
