@@ -88,6 +88,7 @@ export default create({
 </script>
 
 <style scoped lang="scss">
+@import "../../styles/NoImgError";
 .el-col-4-8 {
   width: 20%;
 }

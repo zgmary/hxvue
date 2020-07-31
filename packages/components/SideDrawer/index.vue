@@ -103,53 +103,23 @@ export default create({
 
 <style scoped lang="scss">
 $bg-color: #909399;
-$time: 0.5s;
-@mixin positionInfo(
-  $top: 0%,
-  $right: 0%,
-  $width: 100%,
-  $height: 100%,
-  $isWidthAndHeight: true
-) {
-  position: fixed;
-  top: $top;
-  right: $right;
-  z-index: 1000;
-  @if $isWidthAndHeight {
-    width: $width;
-    height: $height;
-  }
-}
-@mixin opacity($from, $to) {
-  from {
-    opacity: $from;
-  }
-  to {
-    opacity: $to;
-  }
-}
-@mixin transform($from, $to) {
-  from {
-    transform: translateX($from);
-  }
-  to {
-    transform: translateX($to);
-  }
-}
+$transform-time: 0.5s;
+@import "../../styles/PositionInfo";
+@import "../../styles/Transform";
 .hxvue-side-drawer {
   &__mask {
     @include positionInfo;
     background-color: rgba(55, 55, 55, 0.6);
   }
   &__bg {
-    @include positionInfo(0%, 0%, 5px, 100%);
+    @include positionInfo(0%, NULL, 0%, 5px, 100%);
     background-color: $bg-color;
-    transition: right $time;
+    transition: right $transform-time;
   }
   &__btnGroup {
-    @include positionInfo(50%, 0%, 0%, 0%, false);
+    @include positionInfo(50%, NULL, 0%, NULL, NULL);
     transform: translate(0, -50%);
-    transition: right $time;
+    transition: right $transform-time;
   }
   &__btn {
     display: flex;
@@ -157,14 +127,14 @@ $time: 0.5s;
     margin-top: 5px;
   }
   &__wrapper {
-    @include positionInfo(0%, 0%, 0%, 100%);
+    @include positionInfo(0%, NULL, 0%, 0%, 100%);
   }
 }
 .drawer-fade-enter-active {
-  animation: drawer-fade-in $time;
+  animation: drawer-fade-in $transform-time;
 }
 .drawer-fade-leave-active {
-  animation: drawer-fade-out $time;
+  animation: drawer-fade-out $transform-time;
 }
 @keyframes drawer-fade-in {
   @include transform(100%, 0);
@@ -173,10 +143,10 @@ $time: 0.5s;
   @include transform(0, 100%);
 }
 .mask-fade-enter-active {
-  animation: mask-fade-in $time;
+  animation: mask-fade-in $transform-time;
 }
 .mask-fade-leave-active {
-  animation: mask-fade-out $time;
+  animation: mask-fade-out $transform-time;
 }
 @keyframes mask-fade-in {
   @include opacity(0, 1);

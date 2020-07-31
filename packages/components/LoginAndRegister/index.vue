@@ -256,31 +256,14 @@ export default create({
 </script>
 
 <style scoped lang="scss">
-@mixin positionInfo(
-  $position: fixed,
-  $left: 0%,
-  $top: 0%,
-  $width: 100%,
-  $height: 100%,
-  $isWidthAndHeight: true
-) {
-  position: $position;
-  left: $left;
-  top: $top;
-  z-index: 1000;
-  @if $isWidthAndHeight {
-    width: $width;
-    height: $height;
-  }
-}
-
+@import "../../styles/PositionInfo";
 .hxvue-login-and-register {
   &__mask {
     @include positionInfo;
     background-color: rgba(55, 55, 55, 0.6);
   }
   &__card {
-    @include positionInfo(fixed, 50%, 50%, 700px, 500px);
+    @include positionInfo(50%, 50%, NULL, 700px, 500px);
     //平移自己宽度（高度）的50%
     transform: translate(-50%, -50%);
     display: flex;
@@ -291,37 +274,37 @@ export default create({
     line-height: 1;
   }
   &__catalogue {
-    @include positionInfo(relative, 0%, 0%, 40%, 100%);
+    @include positionInfo(0%, 0%, NULL, 40%, 100%, relative);
     background-color: rgba(0, 123, 255, 153);
   }
   &__time {
-    @include positionInfo(absolute, 10%, 10%, 0%, 0%, false);
+    @include positionInfo(10%, 10%, NULL, NULL, NULL, absolute);
     color: floralwhite;
     font-size: 18px;
   }
   &__logo {
-    @include positionInfo(absolute, 10%, 25%, 80%, 50%);
+    @include positionInfo(25%, 10%, NULL, 80%, 50%, absolute);
   }
   &__info {
-    @include positionInfo(absolute, 0%, 80%, 100%, 20px);
+    @include positionInfo(80%, 0%, NULL, 100%, 20px, absolute);
     text-align: center;
     font-size: 20px;
     color: whitesmoke;
   }
   &__content {
-    @include positionInfo(relative, 0%, 0%, 60%, 100%);
+    @include positionInfo(0%, 0%, NULL, 60%, 100%, relative);
   }
   &__close {
-    @include positionInfo(absolute, 90%, 2%, 0%, 0%, false);
+    @include positionInfo(2%, 90%, NULL, NULL, NULL, absolute);
     cursor: pointer;
     font-size: 25px;
   }
   &__title {
-    @include positionInfo(absolute, 10%, 10%, 0%, 0%, false);
+    @include positionInfo(10%, 10%, NULL, NULL, NULL, absolute);
     font-size: 30px;
   }
   &__form {
-    @include positionInfo(absolute, 10%, 25%, 80%, 50%);
+    @include positionInfo(25%, 10%, NULL, 80%, 50%, absolute);
   }
   &__code {
     &--img {
@@ -349,10 +332,10 @@ export default create({
       cursor: pointer;
     }
     &--login {
-      @include positionInfo(absolute, 10%, 80%, 0%, 0%, false);
+      @include positionInfo(80%, 10%, NULL, NULL, NULL, absolute);
     }
     &--register {
-      @include positionInfo(absolute, 10%, 90%, 0%, 0%, false);
+      @include positionInfo(90%, 10%, NULL, NULL, NULL, absolute);
     }
   }
 }

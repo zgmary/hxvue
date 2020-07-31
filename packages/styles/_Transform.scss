@@ -1,0 +1,17 @@
+$transform-time: 0.2s !default;
+@mixin transform($from, $to) {
+  from {
+    transform: translateX($from);
+  }
+  to {
+    transform: translateX($to);
+  }
+}
+@mixin opacity($from, $to) {
+  from {
+    opacity: $from;
+  }
+  to {
+    opacity: $to;
+  }
+}
