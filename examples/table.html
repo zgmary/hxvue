@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table组件测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #e8eeec;
+            font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong
+    >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+    >
+</noscript>
+
+<div id="app">
+    <hxvue-table :table-data="tableData" :options="options" :columns="columns" :operates="operates"
+            @handle-selection-change="handleSelectionChange"
+            :pagination="pagination"
+            @change-page-size="changePageSize"
+            @change-is-loading="changeIsLoading">
+    </hxvue-table>
+</div>
+
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                pagination: {
+                    pageSize: 20,
+                    pageSizes: [20, 30, 50, 100],
+                },
+                tableData: [],
+                options: {
+                    stripe: false,
+                    mutiSelect: true,
+                    isLoading: false
+                },
+                columns: [{
+                    prop: 'id',
+                    label: '员工账号',
+                    align: 'center',
+                },
+                    {
+                        prop: 'age',
+                        label: '年龄',
+                        align: 'center',
+                    },
+                    {
+                        prop: 'birthDate',
+                        label: '出生日期',
+                        align: 'center',
+                    },
+                    {
+                        prop: 'note',
+                        label: '备注',
+                        align: 'center',
+                    },
+                    {
+                        prop: 'sex',
+                        label: '性别',
+                        align: 'center',
+                    },
+                    {
+                        prop: 'country',
+                        label: '国家',
+                        align: 'center',
+                    },
+                ],
+                operates: {
+                    width: 200,
+                    list: [{
+                        id: '1',
+                        label: '编辑',
+                        type: 'warning',
+                        icon: 'el-icon-edit',
+                        disabled: false,
+                        method: (index, row) => {
+                            this.handleEdit(index, row)
+                        }
+                    },
+                        {
+                            id: '2',
+                            label: '删除',
+                            type: 'danger',
+                            icon: 'el-icon-delete',
+                            disabled: false,
+                            method: (index, row) => {
+                                this.handleDel(index, row)
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        methods: {
+            handleSelectionChange(val) {
+                console.log('val:', val)
+            },
+            handleEdit(index, row) {
+                console.log(' index:', index)
+                console.log(' row:', row)
+            },
+            handleDel(index, row) {
+                console.log(' index:', index)
+                console.log(' row:', row)
+            },
+            changePageSize(val) {
+                this.pagination.pageSize = val
+            },
+            changeIsLoading(val) {
+                this.options.isLoading = val
+                console.log(this.options.isLoading)
+            }
+        },
+        created() {
+            loadTableData(this.tableData)
+        }
+    })
+    function loadTableData(demoData, demoDataNum = 30) {
+        for (let i = 0; i < demoDataNum; i ++) {
+            let sex = Mock.mock({"boolean|1": true})
+            sex = sex.boolean === true ? '男' : '女'
+            demoData.push({
+                id: Mock.mock(`@integer(1, ${demoDataNum})`),
+                age: Mock.mock('@integer(1, 100)'),
+                birthDate: Mock.mock('@date'),
+                note: Mock.mock('@word'),
+                sex: `${sex}`,
+                country: Mock.mock('@city')
+            })
+        }
+    }
+</script>
+</html>

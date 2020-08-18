@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SideBar组件测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+
+    <style type="text/css">
+        .main-container {
+            margin-left: 210px;
+            transition: margin-left 0.3s;
+        }
+        .svg-container {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 15px;
+        }
+        .hamburger {
+            display: inline-block;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        .hamburger.is-active {
+            transform: rotate(180deg);
+        }
+        .hideSidebar .main-container {
+            margin-left: 56px;
+        }
+    </style>
+
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but
+        <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<div id="app">
+    <span>侧边菜单栏组件演示</span>
+    <HR color=#987cb9 SIZE=3 />
+    <hxvue-side-bar :option="option" :menu-data="menuData" @menu-click="menuClick"></hxvue-side-bar>
+    <div class="main-container">
+        <div class="svg-container">
+             <svg
+                        @click="menuClick('1', '1')"
+                        :class="{'is-active':option.isCollapse}"
+                        class="hamburger"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="64"
+                        height="64"
+             >
+                    <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z" />
+             </svg>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                option: {
+                    backgroundColor: "#304156",
+                    textColor: "#fff",
+                    activeTextColor: "#ffd04b",
+                    isCollapse: false,
+                    elMenuStyle: {
+                        height: "800px"
+                    },
+                    defaultActive: "12"
+                },
+                menuData: [
+                    {
+                        "id": '1',
+                        "menu_name": "后台快速开发模板",
+                       "icon": 'el-icon-s-home'
+                    },
+                    {
+                        "id": '2',
+                        "menu_name": "嵌套路由",
+                        "icon": 'el-icon-menu',
+                        "node": [{
+                            "id": '3',
+                            "menu_name": "菜单 1",
+                            "node": [
+                                {
+                                    "id": '4',
+                                    "menu_name": "菜单 1-1"
+                                },
+                                {
+                                    "id": '5',
+                                    "menu_name": "菜单 1-2",
+                                    "node": [{
+                                        "id": '6',
+                                        "menu_name": "菜单 1-2-1"
+                                    },
+                                        {
+                                            "id": '7',
+                                            "menu_name": "菜单 1-2-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": '8',
+                                    "menu_name": "菜单 1-3"
+                                }]
+                        },
+                            {
+                                "id": '9',
+                                "menu_name": "菜单 2",
+                            }
+                        ]
+                    },
+                    {
+                        "id": '10',
+                        "menu_name": "表格",
+                        "icon": "el-icon-s-order",
+                        "node": [{
+                            "id": '11',
+                            "menu_name": "表格1"
+                        }]
+                    },
+                    {
+                        "id": '12',
+                        "menu_name": "图片",
+                        "icon": "el-icon-picture"
+                    },
+                    {
+                        "id": '13',
+                        "menu_name": "文档",
+                        "icon": "el-icon-s-promotion"
+                    }
+                ]
+            }
+        },
+        methods: {
+            menuClick(index, indexPath){
+                if("1" === index)
+                {
+                    this.option.isCollapse = ! this.option.isCollapse;
+                }
+                console.log("menuClick=" + index +"," + indexPath);
+            }
+        }
+    })
+</script>
+</html>
