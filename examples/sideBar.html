@@ -14,7 +14,7 @@
 
     <style type="text/css">
         .main-container {
-            margin-left: 210px;
+            margin-left: 200px;
             transition: margin-left 0.3s;
         }
         .svg-container {
@@ -34,6 +34,12 @@
         .hideSidebar .main-container {
             margin-left: 56px;
         }
+        .scrollbarClass {
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
     </style>
 
 </head>
@@ -46,10 +52,11 @@
 <div id="app">
     <span>侧边菜单栏组件演示</span>
     <HR color=#987cb9 SIZE=3 />
-    <hxvue-side-bar :option="option" :menu-data="menuData" @menu-click="menuClick"></hxvue-side-bar>
-    <div class="main-container">
-        <div class="svg-container">
-             <svg
+    <div :class="classObj">
+        <hxvue-side-bar :option="option" :menu-data="menuData" @menu-click="menuClick"></hxvue-side-bar>
+        <div class="main-container">
+            <div class="svg-container">
+                <svg
                         @click="menuClick('1', '1')"
                         :class="{'is-active':option.isCollapse}"
                         class="hamburger"
@@ -57,9 +64,10 @@
                         xmlns="http://www.w3.org/2000/svg"
                         width="64"
                         height="64"
-             >
+                >
                     <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z" />
-             </svg>
+                </svg>
+            </div>
         </div>
     </div>
 </div>
@@ -76,15 +84,20 @@
                     activeTextColor: "#ffd04b",
                     isCollapse: false,
                     elMenuStyle: {
-                        height: "800px"
+                        height: "100%",
+                        //设置组件的宽度，该变量必须设置
+                        '--SidebarWidth': "250px"
                     },
-                    defaultActive: "12"
+                    scrollbarWrapperClass: "scrollbarClass",
+                    defaultActive: "12",
                 },
                 menuData: [
                     {
                         "id": '1',
                         "menu_name": "后台快速开发模板",
-                       "icon": 'el-icon-s-home'
+                        "icon": 'el-icon-s-home',
+                        "iconSize": '18px',
+                        "fontSize": '20px'
                     },
                     {
                         "id": '2',
@@ -142,6 +155,13 @@
                         "icon": "el-icon-s-promotion"
                     }
                 ]
+            }
+        },
+        computed: {
+            classObj() {
+                return {
+                    hideSidebar: this.option.isCollapse,
+                }
             }
         },
         methods: {

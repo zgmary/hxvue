@@ -1,18 +1,20 @@
 <template>
   <div :class="bemCss()">
-    <el-menu
-      mode="vertical"
-      :background-color="backgroundColor"
-      :text-color="textColor"
-      :active-text-color="activeTextColor"
-      :collapse="isCollapse"
-      :default-active="defaultActive"
-      @select="menuClick"
-      :class="bemCss('el-menu')"
-      :style="elMenuStyle"
-    >
-      <sidebar-item :menuData="menuData"></sidebar-item>
-    </el-menu>
+    <el-scrollbar :class="scrollbarWrapperClass">
+      <el-menu
+        mode="vertical"
+        :background-color="backgroundColor"
+        :text-color="textColor"
+        :active-text-color="activeTextColor"
+        :collapse="isCollapse"
+        :default-active="defaultActive"
+        @select="menuClick"
+        :class="bemCss('el-menu')"
+        :style="elMenuStyle"
+      >
+        <sidebar-item :menuData="menuData"></sidebar-item>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -55,6 +57,9 @@ export default create({
     elMenuStyle() {
       return this.option.elMenuStyle || { height: "100%" };
     },
+    scrollbarWrapperClass() {
+      return this.option.scrollbarWrapperClass || "elScrollbarClass";
+    },
     defaultActive() {
       return this.option.defaultActive || "";
     }
@@ -71,8 +76,21 @@ export default create({
 .hxvue-side-bar {
   &__el-menu {
     &:not(.el-menu--collapse) {
-      width: 200px;
+      //默认值为200px
+      width: var(--SidebarWidth);
     }
+  }
+  .elScrollbarClass {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  >>> .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
+  >>> .el-scrollbar__view {
+    height: 100%;
   }
   /*隐藏文字*/
   >>> .el-menu--collapse .el-submenu__title span {

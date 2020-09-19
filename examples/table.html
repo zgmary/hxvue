@@ -28,11 +28,10 @@
 </noscript>
 
 <div id="app">
-    <hxvue-table :table-data="tableData" :options="options" :columns="columns" :operates="operates"
-            @handle-selection-change="handleSelectionChange"
+    <hxvue-table :table-data="tableData" :columns="columns"
             :pagination="pagination"
             @change-page-size="changePageSize"
-            @change-is-loading="changeIsLoading">
+            @handle-search="handleSearch">
     </hxvue-table>
 </div>
 
@@ -43,20 +42,20 @@
         data() {
             return {
                 pagination: {
-                    pageSize: 20,
-                    pageSizes: [20, 30, 50, 100],
+                    pageSize: 10,
+                    pageSizes: [10, 30, 50, 100]
                 },
                 tableData: [],
-                options: {
-                    stripe: false,
-                    mutiSelect: true,
-                    isLoading: false
-                },
                 columns: [{
                     prop: 'id',
                     label: '员工账号',
                     align: 'center',
                 },
+                    {
+                        prop: 'name',
+                        label: '姓名',
+                        align: 'center',
+                    },
                     {
                         prop: 'age',
                         label: '年龄',
@@ -68,65 +67,25 @@
                         align: 'center',
                     },
                     {
-                        prop: 'note',
-                        label: '备注',
-                        align: 'center',
-                    },
-                    {
                         prop: 'sex',
                         label: '性别',
                         align: 'center',
                     },
                     {
-                        prop: 'country',
-                        label: '国家',
+                        prop: 'city',
+                        label: '城市',
                         align: 'center',
                     },
-                ],
-                operates: {
-                    width: 200,
-                    list: [{
-                        id: '1',
-                        label: '编辑',
-                        type: 'warning',
-                        icon: 'el-icon-edit',
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row)
-                        }
-                    },
-                        {
-                            id: '2',
-                            label: '删除',
-                            type: 'danger',
-                            icon: 'el-icon-delete',
-                            disabled: false,
-                            method: (index, row) => {
-                                this.handleDel(index, row)
-                            }
-                        }
-                    ]
-                }
+                ]
             }
         },
         methods: {
-            handleSelectionChange(val) {
-                console.log('val:', val)
-            },
-            handleEdit(index, row) {
-                console.log(' index:', index)
-                console.log(' row:', row)
-            },
-            handleDel(index, row) {
-                console.log(' index:', index)
-                console.log(' row:', row)
-            },
             changePageSize(val) {
                 this.pagination.pageSize = val
             },
-            changeIsLoading(val) {
-                this.options.isLoading = val
-                console.log(this.options.isLoading)
+            handleSearch(arr) {
+                console.log(arr)
+                this.tableData = arr
             }
         },
         created() {
@@ -138,12 +97,12 @@
             let sex = Mock.mock({"boolean|1": true})
             sex = sex.boolean === true ? '男' : '女'
             demoData.push({
-                id: Mock.mock(`@integer(1, ${demoDataNum})`),
+                id: Mock.mock('@increment'),
+                name: Mock.mock('@cname'),
                 age: Mock.mock('@integer(1, 100)'),
                 birthDate: Mock.mock('@date'),
-                note: Mock.mock('@word'),
                 sex: `${sex}`,
-                country: Mock.mock('@city')
+                city: Mock.mock('@city')
             })
         }
     }
