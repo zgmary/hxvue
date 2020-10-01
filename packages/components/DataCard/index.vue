@@ -106,6 +106,7 @@ export default create({
   &__itemText {
     position: absolute;
     top: 60%;
+    width: 100%;
     padding: 20px 15px;
     box-sizing: border-box;
     opacity: 0.7;
