@@ -57,6 +57,7 @@
               placement="top-start"
             >
               <el-input
+                :class="bemCss('append')"
                 v-model="form.code"
                 :prefix-icon="code.icon || 'el-icon-c-scale-to-original'"
                 :placeholder="code.placeholder || '请输入验证码'"
@@ -306,10 +307,16 @@ export default create({
   &__form {
     @include positionInfo(25%, 10%, NULL, 80%, 50%, absolute);
   }
+  &__append {
+    >>> .el-input-group__append {
+      padding: 0;
+      border: 0;
+    }
+  }
   &__code {
     &--img {
-      width: 50px;
-      height: 25px;
+      width: 91px;
+      height: 40px;
     }
   }
   &__agreement {

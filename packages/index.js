@@ -17,7 +17,7 @@ import Table from "./components/Table";
 import SideBar from "./components/SideBar";
 
 // 组件版本号
-const $HxVueVersion = "Ver 1.1.8";
+const $HxVueVersion = "Ver 1.1.9";
 import $HxVueLog from "./plugin/logs/";
 import { $HxVueWatermark } from "./plugin/canvas/";
 import $HxVueImagePreview from "./plugin/imagePreview/";
