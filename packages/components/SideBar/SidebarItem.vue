@@ -1,26 +1,26 @@
 <template>
   <div>
-    <div v-for="item in menuData" :key="item.id">
-      <el-submenu v-if="item.node" :index="item.id">
+    <div v-for="item in menuData" :key="item.path">
+      <el-submenu v-if="item.children" :index="item.path">
         <template slot="title">
           <i
             :class="item.icon"
             :style="{ fontSize: item.iconSize || '18px' }"
           ></i>
           <span slot="title" :style="{ fontSize: item.fontSize || '16px' }">{{
-            item.menu_name
+            item.label
           }}</span>
         </template>
-        <sidebar-item :menuData="item.node"></sidebar-item>
+        <sidebar-item :menuData="item.children"></sidebar-item>
       </el-submenu>
 
-      <el-menu-item v-else :index="item.id">
+      <el-menu-item v-else :index="item.path" :class="{ 'is-active': item.flagActive || false }">
         <i
           :class="item.icon"
           :style="{ fontSize: item.iconSize || '18px' }"
         ></i>
         <span slot="title" :style="{ fontSize: item.fontSize || '16px' }">{{
-          item.menu_name
+          item.label
         }}</span>
       </el-menu-item>
     </div>
